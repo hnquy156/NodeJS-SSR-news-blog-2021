@@ -9,12 +9,14 @@ const ParamsHelpers = require(__path_helpers + 'params');
 const folderView = `${__path_views_admin}pages/${collectionName}`;
 
 /* GET list page. */
-router.get('/', async (req, res, next) => {
+router.get('(/status/:status)?', async (req, res, next) => {
 	const condition = {};
-	const currentStatus = ParamsHelpers.getParam(req.query, 'status', 'all');
+	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
+	const search_value = ParamsHelpers.getParam(req.query, 'search_value', '');
 	const filterStatus = await UtilsHelpers.createFilterStatus(currentStatus, collectionName);
 
 	if (currentStatus !== 'all') condition.status = currentStatus;
+	if (search_value) condition.name = new RegExp(search_value, 'i');
 	const items = await MainModel.getList(condition);
 
 	res.render(`${folderView}/list`, { 
@@ -22,6 +24,7 @@ router.get('/', async (req, res, next) => {
 		items,
 		currentStatus,
 		filterStatus,
+		search_value,
 	});
 });
 
