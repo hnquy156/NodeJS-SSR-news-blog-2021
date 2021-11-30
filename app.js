@@ -19,6 +19,7 @@ global.__path_routes = __path_base + pathConfigs.folderRoutes + '/';
 global.__path_public = __path_base + pathConfigs.folderPublic + '/';
 global.__path_schemas = __path_base + pathConfigs.folderSchemas + '/';
 global.__path_models = __path_base + pathConfigs.folderModels + '/';
+global.__path_helpers = __path_base + pathConfigs.folderHelpers + '/';
 
 const systemConfigs = require(__path_configs + 'system');
 const databaseConfigs = require(__path_configs + 'database');
@@ -43,7 +44,7 @@ app.use(cookieParser());
 app.use(express.static(__path_public));
 
 // Local variable
-app.locals.systemConfig = systemConfigs;
+app.locals.systemConfigs = systemConfigs;
 // app.locals.moment = moment;
 
 // Setup Router
