@@ -5,7 +5,6 @@
     collection = 'items';
     linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
 %>
-<%= JSON.stringify(items) %>
 <!-- Search & Filter -->
 <div class="card card-info card-outline">
     <div class="card-header">
@@ -26,7 +25,7 @@
                         <input type="text" class="form-control form-control-sm" name="search_value" value="<%= search_value %>" style="min-width: 300px">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-sm btn-danger" id="btn-clear-search">Clear</button>
-                            <button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
+                            <button type="button" class="btn btn-sm btn-info" id="btn-search">Search</button>
                         </div>
                     </div>
                 </form>

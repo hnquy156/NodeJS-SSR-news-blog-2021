@@ -8,8 +8,16 @@ $(document).ready(function () {
     activeMenu();
 
     // Search event
-    $btnSearch.click(function() {
+    $btnSearch.click(function(e) {
         const search_value = $inputSearch.val();
+        let pathname = window.location.pathname;
+
+        if (search_value) {
+            pathname += '?search_value=' + search_value;
+        } else {
+            
+        }
+        window.location.replace(pathname);
     });
 
     $btnClearSearch.click(function() {
