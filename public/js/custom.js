@@ -10,7 +10,11 @@ $(document).ready(function () {
     // Search event
     $btnSearch.click(function() {
         const search_value = $inputSearch.val();
-        
+    });
+
+    $btnClearSearch.click(function() {
+        $inputSearch.val('');
+        $btnSearch.click();
     });
 
     // $inputSearch.on('keyup', function(event) {
