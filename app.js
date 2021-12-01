@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session')
 
 const pathConfigs = require('./path');
 // Define path
@@ -42,7 +44,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(__path_public));
+app.use(session({
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: false,
+	cookie: { 
+		secure: false ,
+		maxAge: 1000*60*5,
+	}
+}))
 
+// Use flash connect
+app.use(flash());
 // Local variable
 app.locals.systemConfigs = systemConfigs;
 // app.locals.moment = moment;

@@ -5,6 +5,7 @@ const collectionName = 'items';
 const MainModel = require(__path_models + collectionName);
 const UtilsHelpers = require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
+const NotifyHelpers = require(__path_helpers + 'notify');
 const systemConfigs = require(__path_configs + 'system');
 
 const folderView = `${__path_views_admin}pages/${collectionName}`;
@@ -18,7 +19,7 @@ router.post('/change-ordering', async (req, res) => {
 	const task 			= Array.isArray(id) ? 'change-ordering-multi' : 'change-ordering-one';
 
 	await MainModel.changeOrdering(id, ordering, {task});
-	res.redirect(linkIndex);
+	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-ordering'});
 });
 
 /* GET Delete one */
@@ -26,15 +27,15 @@ router.get('/delete/:id', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
 
 	await MainModel.deleteItem(id, {task: 'delete-one'});
-	res.redirect(linkIndex);
+	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'delete-one'});
 });
 
 /* POST Delete multi */
 router.post('/delete/', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.body, 'cid', '');
 
-	await MainModel.deleteItem(id, {task: 'delete-multi'});
-	res.redirect(linkIndex);
+	const result = await MainModel.deleteItem(id, {task: 'delete-multi'});
+	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'delete-multi', total: result.deletedCount});
 });
 
 /* GET Change status one */
@@ -43,7 +44,7 @@ router.get('/change-status/:status/:id', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
 
 	await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one'});
-	res.redirect(linkIndex);
+	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-status-one'});
 });
 
 /* POST Change status multi */
@@ -51,13 +52,14 @@ router.post('/change-status/:status', async (req, res) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
 	const id		    = ParamsHelpers.getParam(req.body, 'cid', '');
 
-	await MainModel.changeStatus(id, currentStatus, {task: 'change-status-multi'});
-	res.redirect(linkIndex);
+	const result = await MainModel.changeStatus(id, currentStatus, {task: 'change-status-multi'});
+	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-status-multi', total: result.modifiedCount});
 });
 
 /* GET list page. */
 router.get('(/status/:status)?', async (req, res, next) => {
 	const condition = {};
+	const messages	= req.flash('notify');
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
 	const currentPage = ParamsHelpers.getParam(req.query, 'page', 1);
 	const search_value = ParamsHelpers.getParam(req.query, 'search_value', '');
@@ -81,6 +83,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 
 	res.render(`${folderView}/list`, { 
 		pageTitle: 'Items',
+		messages,
 		items,
 		currentStatus,
 		filterStatus,

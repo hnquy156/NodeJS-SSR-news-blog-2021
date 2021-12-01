@@ -3,11 +3,13 @@
 <% include ./../../helpers/pagination %>
 <% include ./../../helpers/control %>
 <% include ./../../helpers/action %>
+<% include ./../../helpers/notify %>
 
 <%
     collection = 'items';
     linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
 %>
+<%- showNotify(messages) %>
 <!-- Search & Filter -->
 <div class="card card-info card-outline">
     <div class="card-header">

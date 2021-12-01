@@ -41,6 +41,7 @@ $(document).ready(function () {
                 $ordering.removeAttr('name');
             }
         });
+        showSelectedRowInBulkAction($('input[name="cid"]:checked'));
     });
 
     // Ordering events
@@ -52,6 +53,7 @@ $(document).ready(function () {
         } else {
             $ordering.removeAttr('name');
         }
+        showSelectedRowInBulkAction($('input[name="cid"]:checked'));
     });
 
     // Apply action
@@ -73,16 +75,17 @@ $(document).ready(function () {
                     $form.attr('action', `${linkPrefix}/change-ordering`);
                     break;
                 default:
-                    alert('Vui long chon action');
+                    showToast('warning', 'Vui lòng chọn Action');
                     break;
             }
             if (action) $form.submit();
         } else {
-            alert('Chua chon du lieu');
+            showToast('warning', 'Vui lòng chọn dữ liệu cần thao tác');
         }
     });
 
 });
+
 
 const Toast = Swal.mixin({
     toast: true,
@@ -92,6 +95,14 @@ const Toast = Swal.mixin({
     timer: 5000,
     padding: '1rem',
 });
+
+
+function showToast(type, content) {
+    Toast.fire({
+        icon: type,
+        title: ' ' + content,
+    });
+}
 
 function activeMenu() {
     let searchParams = new URLSearchParams(window.location.search);
@@ -168,26 +179,6 @@ function createLink(exceptParams) {
     return link;
 }
 
-function showToast(type, action) {
-    let message = '';
-    switch (action) {
-        case 'update':
-            message = 'Cập nhật thành công!';
-            break;
-        case 'bulk-action-not-selected-action':
-            message = 'Vui lòng chọn action cần thực hiện!';
-            break;
-        case 'bulk-action-not-selected-row':
-            message = 'Vui lòng chọn ít nhất 1 dòng dữ liệu!';
-            break;
-    }
-
-    Toast.fire({
-        icon: type,
-        title: ' ' + message,
-    });
-}
-
 function filePreview(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -199,8 +190,8 @@ function filePreview(input) {
     }
 }
 
-function showSelectedRowInBulkAction() {
-    let checkbox = $('#form-table input[name="cid"]:checked');
+function showSelectedRowInBulkAction(checkbox) {
+    // let checkbox = $('#form-table input[name="cid"]:checked');
     let navbarBadge = $('#bulk-apply .navbar-badge');
     if (checkbox.length > 0) {
         navbarBadge.html(checkbox.length);
