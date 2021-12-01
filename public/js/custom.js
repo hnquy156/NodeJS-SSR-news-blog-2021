@@ -29,6 +29,8 @@ $(document).ready(function () {
     //     if (event.key)
     // });
 
+    // Check all
+
 });
 
 const Toast = Swal.mixin({
