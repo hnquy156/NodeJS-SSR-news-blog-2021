@@ -50,7 +50,7 @@
 
         <div class="d-flex flex-wrap align-items-center justify-content-between mb-2">
             <div class="mb-1">
-                <%- actionHelper() %>
+                <%- actionHelper(linkPrefix) %>
             </div>
             <div class="mb-1">
                 <a href="category-form.php" class="btn btn-sm btn-info"><i class="fas fa-plus"></i> Add New</a>
@@ -82,8 +82,8 @@
                         <tr>
                             <td class="text-center">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="checkbox-1" name="checkbox[]" value="1">
-                                    <label for="checkbox-1" class="custom-control-label"></label>
+                                    <input class="custom-control-input" type="checkbox" id="checkbox-<%= index %>" name="cid" value="<%= item.id %>">
+                                    <label for="checkbox-<%= index %>" class="custom-control-label"></label>
                                 </div>
                             </td>
                             <td class="text-center"><%= index + 1 %></td>

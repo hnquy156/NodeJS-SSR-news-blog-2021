@@ -24,7 +24,16 @@ router.get('/change-status/:status/:id', async (req, res) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
 
-	await MainModel.changeStatus(id, currentStatus, null);
+	await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one'});
+	res.redirect(linkIndex);
+});
+
+/* POST Change status multi */
+router.post('/change-status/:status', async (req, res) => {
+	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
+	const id		    = ParamsHelpers.getParam(req.body, 'cid', '');
+
+	await MainModel.changeStatus(id, currentStatus, {task: 'change-status-multi'});
 	res.redirect(linkIndex);
 });
 

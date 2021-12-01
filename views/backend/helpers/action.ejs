@@ -11,7 +11,7 @@
         actions.forEach(action => {
             xhtml += `<option value="${action.value}">${action.name}</option>`;
         })
-        return `<select id="bulk-action" name="bulk-action" class="custom-select custom-select-sm mr-1" style="width: unset">
+        return `<select id="bulk-action" name="bulk-action" data-link="${linkPrefix}" class="custom-select custom-select-sm mr-1" style="width: unset">
                     ${xhtml}
                 </select> 
                 <button id="bulk-apply" class="btn btn-sm btn-info">Apply <span class="badge badge-pill badge-danger navbar-badge" style="display: none"></span></button>

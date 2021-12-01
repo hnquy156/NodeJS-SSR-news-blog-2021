@@ -30,6 +30,31 @@ $(document).ready(function () {
     // });
 
     // Check all
+    $('#check-all').change(function() {
+        const check = $(this).is(':checked');
+        $('input[name="cid"]').prop('checked', check);
+    });
+
+    // Apply action
+    $('#bulk-apply').click(function() {
+        const action = $('#bulk-action').val();
+        const linkPrefix = $('#bulk-action').data('link');
+        const checkbox = $('#form-table input[name="cid"]:checked');
+        const $form = $('#form-table');
+        if (checkbox.length > 0) {
+            switch(action) {
+                case 'active':
+                    $form.attr('action', `${linkPrefix}/change-status/${action}`);
+                    break;
+                default:
+                    alert('Vui long chon action');
+                    break;
+            }
+            if (action) $form.submit();
+        } else {
+            alert('Chua chon du lieu');
+        }
+    });
 
 });
 
@@ -149,7 +174,7 @@ function filePreview(input) {
 }
 
 function showSelectedRowInBulkAction() {
-    let checkbox = $('#form-table input[name="checkbox[]"]:checked');
+    let checkbox = $('#form-table input[name="cid"]:checked');
     let navbarBadge = $('#bulk-apply .navbar-badge');
     if (checkbox.length > 0) {
         navbarBadge.html(checkbox.length);
