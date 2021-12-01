@@ -1,5 +1,5 @@
 
-const createFilterStatus = async (currentStatus, collection) => {
+const createFilterStatus = async (currentStatus, collection, search_value) => {
     const ItemsModel = require(__path_schemas + collection);
     const filterStatus = [
         {name: 'All', value: 'all', color: 'secondary', count: 15},
@@ -8,6 +8,7 @@ const createFilterStatus = async (currentStatus, collection) => {
     ];
     const promiseCount = filterStatus.map(element => {
         const condition = element.value !== 'all' ? {status: element.value} : {};
+        if (search_value) condition.name = new RegExp(search_value, 'i');
         if (element.value === currentStatus) element.color = 'info';
 
         return ItemsModel.countDocuments(condition).then(count => {element.count = count});

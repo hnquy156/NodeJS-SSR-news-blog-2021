@@ -12,12 +12,25 @@ const folderView = `${__path_views_admin}pages/${collectionName}`;
 router.get('(/status/:status)?', async (req, res, next) => {
 	const condition = {};
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
+	const currentPage = ParamsHelpers.getParam(req.query, 'page', 1);
 	const search_value = ParamsHelpers.getParam(req.query, 'search_value', '');
-	const filterStatus = await UtilsHelpers.createFilterStatus(currentStatus, collectionName);
+	const filterStatus = await UtilsHelpers.createFilterStatus(currentStatus, collectionName, search_value);
 
 	if (currentStatus !== 'all') condition.status = currentStatus;
 	if (search_value) condition.name = new RegExp(search_value, 'i');
-	const items = await MainModel.getList(condition);
+
+	const pagination = {
+		itemsTotal: await MainModel.countItems(condition),
+		itemsOnPerPage: 3,
+		currentPage,
+		pageRanges : 5,
+	}
+	pagination.pagesTotal = Math.ceil(pagination.itemsTotal / pagination.itemsOnPerPage);
+	const options = {
+		limit: pagination.itemsOnPerPage,
+		skip: (pagination.currentPage - 1) * pagination.itemsOnPerPage,
+	}
+	const items = await MainModel.getList(condition, options);
 
 	res.render(`${folderView}/list`, { 
 		pageTitle: 'Items',
@@ -25,6 +38,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		currentStatus,
 		filterStatus,
 		search_value,
+		pagination,
 	});
 });
 
