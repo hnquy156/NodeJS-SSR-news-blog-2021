@@ -91,7 +91,7 @@
                             </td>
                             <td class="text-center"><%= index + 1 %></td>
                             <td class="text-center"><%= item.name %></td>
-                            <td class="text-center position-relative"><%- statusHelper(item.status, '') %></td>
+                            <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><input type="number" name="chkOrdering[1]" value="<%= item.ordering %>" class="chkOrdering form-control form-control-sm m-auto text-center" style="width: 65px" id="chkOrdering[1]" data-id="1" min="1"></td>
                             <td class="text-center">
                                 <p class="mb-0 history-by"><i class="far fa-user"></i> admin</p>

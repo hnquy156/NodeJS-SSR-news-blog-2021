@@ -5,8 +5,19 @@ const collectionName = 'items';
 const MainModel = require(__path_models + collectionName);
 const UtilsHelpers = require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
+const systemConfigs = require(__path_configs + 'system');
 
 const folderView = `${__path_views_admin}pages/${collectionName}`;
+const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
+
+/* Change status one */
+router.get('/change-status/:status/:id', async (req, res) => {
+	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
+	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
+
+	await MainModel.changeStatus(id, currentStatus, null);
+	res.redirect(linkIndex);
+});
 
 /* GET list page. */
 router.get('(/status/:status)?', async (req, res, next) => {
@@ -41,6 +52,12 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		pagination,
 	});
 });
+
+// Get FORM
+// router.get('/form(/:id)?', async (req, res) => {
+	
+// 	res.render(`${folderView}/form`, {pageTitle: 'Items',})
+// });
 
 
 module.exports = router;

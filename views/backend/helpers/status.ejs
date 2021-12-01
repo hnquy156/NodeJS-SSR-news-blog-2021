@@ -1,11 +1,11 @@
 <% 
-    statusHelper = (status, link) => {
+    statusHelper = (status, linkPrefix, id) => {
         let icon = `<i class="fas fa-check"></i>`;
         let btnStatus = `success`;
         if (status === 'inactive') {
             icon = `<i class="fas fa-minus"></i>`;
             btnStatus = `danger`;
         }
-        return `<a href="#" class="my-btn-state rounded-circle btn btn-sm btn-${btnStatus}">${icon}</a>`
+        return `<a href="${linkPrefix}/change-status/${status}/${id}" class="my-btn-state rounded-circle btn btn-sm btn-${btnStatus}">${icon}</a>`
     }
 %>
