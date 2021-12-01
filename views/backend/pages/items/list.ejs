@@ -1,6 +1,7 @@
 <% include ./../../helpers/status %>
 <% include ./../../helpers/filter-status %>
 <% include ./../../helpers/pagination %>
+<% include ./../../helpers/control %>
 
 <%
     collection = 'items';
@@ -101,15 +102,7 @@
                                 <p class="mb-0 history-by"><i class="far fa-user"></i> admin</p>
                                 <p class="mb-0 history-time"><i class="far fa-clock"></i> 11/08/2020 15:12:17</p>
                             </td>
-                            <td class="text-center">
-                                <a href="" class="rounded-circle btn btn-sm btn-info" title="Edit">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-
-                                <a href="#" class="rounded-circle btn btn-sm btn-danger" title="Delete">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
+                            <td class="text-center"><%- controlHelper(item.id, linkPrefix) %></td>
                         </tr>
                         <%
                     })%>

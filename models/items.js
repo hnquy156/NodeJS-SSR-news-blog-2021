@@ -17,5 +17,9 @@ module.exports = {
 	    const status		= currentStatus === 'active' ? 'inactive' : 'active';
 
         return ItemsModels.updateOne({_id: id}, {status});
-    }
+    },
+
+    deleteItem: (id, options) => {
+        return ItemsModels.deleteOne({_id: id});
+    },
 }

@@ -10,7 +10,16 @@ const systemConfigs = require(__path_configs + 'system');
 const folderView = `${__path_views_admin}pages/${collectionName}`;
 const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
 
-/* Change status one */
+
+/* GET Delete one */
+router.get('/delete/:id', async (req, res) => {
+	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
+
+	await MainModel.deleteItem(id, null);
+	res.redirect(linkIndex);
+});
+
+/* GET Change status one */
 router.get('/change-status/:status/:id', async (req, res) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');

@@ -58,7 +58,7 @@ function activeMenu() {
     }
 }
 
-function confirmObj(text, icon, confirmText) {
+function swalConfig(text, icon, confirmText) {
     return {
         position: 'top',
         title: 'Thông báo!',
@@ -72,15 +72,12 @@ function confirmObj(text, icon, confirmText) {
     };
 }
 
-function deleteItem(id) {
-    Swal.fire(confirmObj('Bạn chắc chắn muốn xóa dòng dữ liệu này?', 'error', 'Xóa')).then(
+function deleteItem(linkDelete) {
+    Swal.fire(swalConfig('Bạn có muốn xóa dữ liệu này?', 'error', 'Xóa')).then(
         (result) => {
             if (result.value) {
-                let searchParams = new URLSearchParams(window.location.search);
-                let moduleName = searchParams.get('module');
-                let controllerName = searchParams.get('controller');
-                window.location.href = `index.php?module=${moduleName}&controller=${controllerName}&action=delete&id=${id}`;
-            }
+                window.location.href = linkDelete;
+            };
         }
     );
 }
