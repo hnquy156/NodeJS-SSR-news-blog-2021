@@ -44,6 +44,7 @@ $(document).ready(function () {
         if (checkbox.length > 0) {
             switch(action) {
                 case 'active':
+                case 'inactive':
                     $form.attr('action', `${linkPrefix}/change-status/${action}`);
                     break;
                 default:
