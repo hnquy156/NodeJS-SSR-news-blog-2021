@@ -24,6 +24,18 @@ module.exports = {
         }
     },
 
+    changeOrdering: async (id, ordering, options) => {
+        if (options.task === 'change-ordering-one') {
+            return ItemsModels.updateOne({_id: id}, {ordering});
+        }
+        if (options.task === 'change-ordering-multi') {
+            const promiseOrdering = id.map((ID, index) => {
+                return ItemsModels.updateOne({_id: ID}, {ordering: ordering[index]});
+            });
+            return await Promise.all(promiseOrdering);
+        }
+    },
+
     deleteItem: (id, options) => {
         if (options.task === 'delete-one')
             return ItemsModels.deleteOne({_id: id});

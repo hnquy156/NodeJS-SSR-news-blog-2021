@@ -11,6 +11,16 @@ const folderView = `${__path_views_admin}pages/${collectionName}`;
 const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
 
 
+/* POST Delete multi */
+router.post('/change-ordering', async (req, res) => {
+	const id		    = ParamsHelpers.getParam(req.body, 'cid', '');
+	const ordering		= ParamsHelpers.getParam(req.body, 'ordering', '');
+	const task 			= Array.isArray(id) ? 'change-ordering-multi' : 'change-ordering-one';
+
+	await MainModel.changeOrdering(id, ordering, {task});
+	res.redirect(linkIndex);
+});
+
 /* GET Delete one */
 router.get('/delete/:id', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');

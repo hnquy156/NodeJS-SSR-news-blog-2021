@@ -31,8 +31,27 @@ $(document).ready(function () {
 
     // Check all
     $('#check-all').change(function() {
+        const check = this.checked;
+        $('input[name="cid"]').each(function() {
+            this.checked = check;
+            const $ordering = $(this).parents('tr').find('.ordering');
+            if (check) {
+                $ordering.attr('name', 'ordering');
+            } else {
+                $ordering.removeAttr('name');
+            }
+        });
+    });
+
+    // Ordering events
+    $('#form-table input[name="cid"]').change(function() {
         const check = $(this).is(':checked');
-        $('input[name="cid"]').prop('checked', check);
+        const $ordering = $(this).parents('tr').find('.ordering');
+        if (check) {
+            $ordering.attr('name', 'ordering');
+        } else {
+            $ordering.removeAttr('name');
+        }
     });
 
     // Apply action
@@ -49,6 +68,9 @@ $(document).ready(function () {
                     break;
                 case 'delete':
                     $form.attr('action', `${linkPrefix}/delete`);
+                    break;
+                case 'ordering':
+                    $form.attr('action', `${linkPrefix}/change-ordering`);
                     break;
                 default:
                     alert('Vui long chon action');
