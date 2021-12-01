@@ -25,6 +25,9 @@ module.exports = {
     },
 
     deleteItem: (id, options) => {
-        return ItemsModels.deleteOne({_id: id});
+        if (options.task === 'delete-one')
+            return ItemsModels.deleteOne({_id: id});
+        if (options.task === 'delete-multi')
+            return ItemsModels.deleteMany({_id: { $in: id}});
     },
 }

@@ -15,7 +15,15 @@ const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
 router.get('/delete/:id', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
 
-	await MainModel.deleteItem(id, null);
+	await MainModel.deleteItem(id, {task: 'delete-one'});
+	res.redirect(linkIndex);
+});
+
+/* POST Delete multi */
+router.post('/delete/', async (req, res) => {
+	const id		    = ParamsHelpers.getParam(req.body, 'cid', '');
+
+	await MainModel.deleteItem(id, {task: 'delete-multi'});
 	res.redirect(linkIndex);
 });
 

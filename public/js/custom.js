@@ -47,6 +47,9 @@ $(document).ready(function () {
                 case 'inactive':
                     $form.attr('action', `${linkPrefix}/change-status/${action}`);
                     break;
+                case 'delete':
+                    $form.attr('action', `${linkPrefix}/delete`);
+                    break;
                 default:
                     alert('Vui long chon action');
                     break;
