@@ -9,4 +9,5 @@ module.exports = {
     folderHelpers: 'helpers',
     folderSchemas: 'schemas',
     folderModels: 'models',
+    folderValidates: 'validates',
 }

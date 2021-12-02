@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+const { body, validationResult } = require('express-validator');
+
 const collectionName = 'items';
 const MainModel = require(__path_models + collectionName);
 const UtilsHelpers = require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
 const NotifyHelpers = require(__path_helpers + 'notify');
 const systemConfigs = require(__path_configs + 'system');
+const Validates = require(__path_validates + collectionName);
 
 const folderView = `${__path_views_admin}pages/${collectionName}`;
 const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
@@ -70,9 +73,9 @@ router.get('(/status/:status)?', async (req, res, next) => {
 
 	const pagination = {
 		itemsTotal: await MainModel.countItems(condition),
-		itemsOnPerPage: 3,
+		itemsOnPerPage: 6,
 		currentPage,
-		pageRanges : 5,
+		pageRanges : 3,
 	}
 	pagination.pagesTotal = Math.ceil(pagination.itemsTotal / pagination.itemsOnPerPage);
 	const options = {
@@ -94,16 +97,24 @@ router.get('(/status/:status)?', async (req, res, next) => {
 
 // Get FORM --- ADD/EDIT
 router.get('/form(/:id)?', async (req, res) => {
-	
-	res.render(`${folderView}/form`, {pageTitle: 'Items',});
+	const item = {id: '', name: '', ordering: 1, content: ''}
+	const errors = [];
+
+	res.render(`${folderView}/form`, {pageTitle: 'Items', errors, item});
 });
 
 // POST ADD/EDIT
-router.post('/form', async (req, res) => {
+router.post('/form', Validates.formValidate(body), async (req, res) => {
 	const item = req.body;
+	const errors = validationResult(req).array();
+	console.log(errors);
+	if (errors.length > 0) {
+		res.render(`${folderView}/form`, {pageTitle: 'Items', errors, item});
 
-	await MainModel.saveItem(item, {task: 'add'});
-	res.redirect(linkIndex);
+	} else {
+		await MainModel.saveItem(item, {task: 'add'});
+		res.redirect(linkIndex);
+	}
 });
 
 module.exports = router;

@@ -13,7 +13,7 @@ module.exports = {
     EDIT_SUCCESS: 'Cập nhật thông tin phần tử thành công',
     ERROR_NAME: 'Chiều dài từ %d đến %d ký tự',
     ERROR_ORDERING: 'Phải là số nguyên lớn hơn %d và bé hơn %d',
-    ERROR_STATUS: 'Phải là một giá trị khác rỗng',
+    ERROR_STATUS: 'Vui lòng chọn Status!',
     ERROR_GROUP_ACP: 'Phải là một giá trị khác rỗng',
     ERROR_SPECIAL: 'Vui lòng chọn giá trị',
     ERROR_GROUP: 'Vui lòng chọn group!',

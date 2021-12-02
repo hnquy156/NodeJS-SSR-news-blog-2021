@@ -22,6 +22,7 @@ global.__path_public = __path_base + pathConfigs.folderPublic + '/';
 global.__path_schemas = __path_base + pathConfigs.folderSchemas + '/';
 global.__path_models = __path_base + pathConfigs.folderModels + '/';
 global.__path_helpers = __path_base + pathConfigs.folderHelpers + '/';
+global.__path_validates = __path_base + pathConfigs.folderValidates + '/';
 
 const systemConfigs = require(__path_configs + 'system');
 const databaseConfigs = require(__path_configs + 'database');

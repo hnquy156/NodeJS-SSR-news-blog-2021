@@ -1,0 +1,14 @@
+<% 
+    selectboxHelper = (name, options, selectedValue = null) => {
+        let xhtml = '';
+        
+        options.forEach(option => {
+            const selected = option.value === selectedValue ? 'selected="selected"' : '';
+            xhtml += `<option value="${option.value}" ${selected}>${option.name}</option>`;
+        })
+
+        return `<select id="form[status]" name="${name}" class="custom-select custom-select-sm">
+                    ${xhtml}
+                </select>`
+    }
+%>
