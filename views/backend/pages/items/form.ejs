@@ -1,3 +1,7 @@
+<% include ./../../helpers/notify-validate %>
+<% include ./../../helpers/selectbox %>
+<% include ./../../helpers/input %>
+<% include ./../../helpers/form-group %>
 <%
     collection = 'items';
     linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
@@ -6,50 +10,25 @@
             {value: 'active', name: 'Active'},
             {value: 'inactive', name: 'Inactive'},
         ];
+    const formGroup = [
+        {label: 'name', input: inputHelper('name', item.name, 'text')},
+        {label: 'status', input: selectboxHelper('status', statusSelectbox, item.status)},
+        {label: 'ordering', input: inputHelper('ordering', item.ordering, 'number')},
+        {label: 'content', input: inputHelper('content', item.content, 'text')},
+    ];
 %>
-<% include ./../../helpers/notify-validate %>
-<% include ./../../helpers/selectbox %>
 
 <%- showErrors(errors) %>
 
 <div class="card card-info card-outline">
     <div class="card-body">
         <form action="<%= linkPrefix %>/form" method="post" class="mb-0" id="admin-form">
-
+            <%- formGroupHelper(formGroup) %>
             <div class="form-group row">
-                <label for="form[name]" class="col-sm-2 col-form-label text-sm-right required">Name</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input type="text" name="name" value="<%= item.name %>" class="form-control form-control-sm">
-                </div>
+                <%- inputHelper('id', item.id, 'hidden') %>
             </div>
-            
-            <div class="form-group row">
-                <label for="form[status]" class="col-sm-2 col-form-label text-sm-right required">Status</label>
-                <div class="col-xs-12 col-sm-8">
-                    <%- selectboxHelper('status', statusSelectbox, item.status) %>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="form[name]" class="col-sm-2 col-form-label text-sm-right required">Ordering</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input type="number" min="1" name="ordering" value="<%= item.ordering %>" class="form-control form-control-sm">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="form[name]" class="col-sm-2 col-form-label text-sm-right required">Content</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input type="text" name="content" value="<%= item.content %>" class="form-control form-control-sm">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-xs-12 col-sm-8">
-                    <input type="hidden" name="id" value="<%= item.id %>" class="form-control form-control-sm">
-                </div>
-            </div>
-
-        </form>
+        </form>`
+        
     </div>
     <div class="card-footer">
         <div class="col-12 col-sm-8 offset-sm-2">

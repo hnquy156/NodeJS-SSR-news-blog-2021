@@ -102,7 +102,7 @@ router.get('/form(/:id)?', async (req, res) => {
 	const errors = [];
 	const pageTitle = id ? 'Edit' : 'Add';
 	item = id ? await MainModel.getItem(id) : item;
-
+	
 	res.render(`${folderView}/form`, {pageTitle, errors, item});
 });
 
