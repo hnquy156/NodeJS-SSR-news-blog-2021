@@ -67,13 +67,8 @@
             <table class="table table-bordered table-hover text-nowrap btn-table mb-0">
                 <thead>
                     <tr>
-                        <th class="text-center">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="check-all">
-                                <label for="check-all" class="custom-control-label"></label>
-                            </div>
-                        </th>
-                        <th class="text-center">ID</th>
+                        <th class="text-center"><%- checkboxAllHelper() %></th>
+                        <th class="text-center">#</th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Name', 'name', sortField, sortType) %></th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Status', 'status', sortField, sortType) %></th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Ordering', 'ordering', sortField, sortType) %></th>
