@@ -19,22 +19,40 @@ module.exports = {
 
     changeStatus: (id, currentStatus, options) => {
 	    const status		= currentStatus === 'active' ? 'inactive' : 'active';
+        const data = {
+            status,
+            modified: {
+                user_id: '',
+                user_name: 'Admin',
+                time: Date.now(),
+            },
+        }
 
         if (options.task === 'change-status-one') {
-            return ItemsModels.updateOne({_id: id}, {status});
+            return ItemsModels.updateOne({_id: id}, data);
         }
         if (options.task === 'change-status-multi') {
-            return ItemsModels.updateMany({_id: { $in: id}}, {status: currentStatus});
+            data.status = currentStatus;
+            return ItemsModels.updateMany({_id: { $in: id}}, data);
         }
     },
 
     changeOrdering: async (id, ordering, options) => {
+        const data = {
+            ordering: +ordering,
+            modified: {
+                user_id: '',
+                user_name: 'Admin',
+                time: Date.now(),
+            },
+        }
         if (options.task === 'change-ordering-one') {
-            return ItemsModels.updateOne({_id: id}, {ordering});
+            return ItemsModels.updateOne({_id: id}, data);
         }
         if (options.task === 'change-ordering-multi') {
             const promiseOrdering = id.map((ID, index) => {
-                return ItemsModels.updateOne({_id: ID}, {ordering: ordering[index]});
+                data.ordering = +ordering[index]
+                return ItemsModels.updateOne({_id: ID}, data);
             });
             return await Promise.all(promiseOrdering);
         }
@@ -48,11 +66,23 @@ module.exports = {
     },
 
     saveItem: (item, options) => {
+        
         if (options.task === 'add') {
+            item.created = {
+                user_id: '',
+                user_name: 'Admin',
+                time: Date.now(),
+            }
             return ItemsModels(item).save();
 
         }
-        if (options.task === 'edit')
+        if (options.task === 'edit') {
+            item.modified = {
+                user_id: '',
+                user_name: 'Admin',
+                time: Date.now(),
+            }
             return ItemsModels.updateOne({_id: item.id}, item);
+        }
     },
 }

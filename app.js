@@ -8,6 +8,7 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session')
+const moment = require('moment');
 
 const pathConfigs = require('./path');
 // Define path
@@ -59,7 +60,7 @@ app.use(session({
 app.use(flash());
 // Local variable
 app.locals.systemConfigs = systemConfigs;
-// app.locals.moment = moment;
+app.locals.moment = moment;
 
 // Setup Router
 app.use(`/${systemConfigs.prefixAdmin}`, require(__path_routes + 'backend/index'));
