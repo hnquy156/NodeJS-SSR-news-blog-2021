@@ -97,23 +97,28 @@ router.get('(/status/:status)?', async (req, res, next) => {
 
 // Get FORM --- ADD/EDIT
 router.get('/form(/:id)?', async (req, res) => {
-	const item = {id: '', name: '', ordering: 1, content: ''}
+	const id = ParamsHelpers.getParam(req.params, 'id', '');
+	let item = {id: '', name: '', ordering: 1, content: ''};
 	const errors = [];
+	const pageTitle = id ? 'Edit' : 'Add';
+	item = id ? await MainModel.getItem(id) : item;
 
-	res.render(`${folderView}/form`, {pageTitle: 'Items', errors, item});
+	res.render(`${folderView}/form`, {pageTitle, errors, item});
 });
 
 // POST ADD/EDIT
 router.post('/form', Validates.formValidate(body), async (req, res) => {
 	const item = req.body;
 	const errors = validationResult(req).array();
-	console.log(errors);
+	const pageTitle = item && item.id ? 'Edit' : 'Add';
+	const task = item && item.id ? 'edit' : 'add';
+	
 	if (errors.length > 0) {
-		res.render(`${folderView}/form`, {pageTitle: 'Items', errors, item});
+		res.render(`${folderView}/form`, {pageTitle, errors, item});
 
 	} else {
-		await MainModel.saveItem(item, {task: 'add'});
-		res.redirect(linkIndex);
+		await MainModel.saveItem(item, {task});
+		NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task});
 	}
 });
 

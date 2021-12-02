@@ -9,6 +9,10 @@ module.exports = {
             .limit(options.limit);
     },
 
+    getItem: (id, options = null) => {
+        return ItemsModels.findById({_id: id});
+    },
+
     countItems: (condition) => {
         return ItemsModels.countDocuments(condition);
     },
@@ -49,6 +53,6 @@ module.exports = {
 
         }
         if (options.task === 'edit')
-            return ItemsModels.deleteMany({_id: { $in: id}});
+            return ItemsModels.updateOne({_id: item.id}, item);
     },
 }

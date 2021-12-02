@@ -1,10 +1,11 @@
 <% 
     controlHelper = (id, linkPrefix) => {
-        const link = `${linkPrefix}/delete/${id}`;
-        return `<a href="" class="rounded-circle btn btn-sm btn-info" title="Edit">
+        const linkDelete = `${linkPrefix}/delete/${id}`;
+        const linkEdit = `${linkPrefix}/form/${id}`;
+        return `<a href="${linkEdit}" class="rounded-circle btn btn-sm btn-info" title="Edit">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
-                <a href="javascript:deleteItem('${link}')" class="rounded-circle btn btn-sm btn-danger" title="Delete">
+                <a href="javascript:deleteItem('${linkDelete}')" class="rounded-circle btn btn-sm btn-danger" title="Delete">
                     <i class="fas fa-trash-alt"></i>
                 </a>`
     }
