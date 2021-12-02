@@ -69,7 +69,15 @@ $(document).ready(function () {
                     $form.attr('action', `${linkPrefix}/change-status/${action}`);
                     break;
                 case 'delete':
-                    $form.attr('action', `${linkPrefix}/delete`);
+                    Swal.fire(swalConfig('Bạn có muốn xóa dữ liệu này?', 'error', 'Xóa')).then(
+                        (result) => {
+                            if (result.value) {
+                                $form.attr('action', `${linkPrefix}/delete`);
+                                $form.submit();
+                            }
+                        }
+                    );
+                    action = '';
                     break;
                 case 'ordering':
                     $form.attr('action', `${linkPrefix}/change-ordering`);
