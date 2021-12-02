@@ -5,6 +5,8 @@
 <% include ./../../helpers/action %>
 <% include ./../../helpers/notify %>
 <% include ./../../helpers/time %>
+<% include ./../../helpers/ordering %>
+<% include ./../../helpers/checkbox %>
 
 <%
     collection = 'items';
@@ -83,16 +85,11 @@
                     <% items.forEach((item, index) => {
                         %>
                         <tr>
-                            <td class="text-center">
-                                <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="checkbox-<%= index %>" name="cid" value="<%= item.id %>">
-                                    <label for="checkbox-<%= index %>" class="custom-control-label"></label>
-                                </div>
-                            </td>
+                            <td class="text-center"><%- checkboxHelper(index, item.id) %></td>
                             <td class="text-center"><%= index + 1 %></td>
                             <td class="text-center"><%= item.name %></td>
                             <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
-                            <td class="text-center position-relative"><input type="number" value="<%= item.ordering %>" class="ordering form-control form-control-sm m-auto text-center" style="width: 65px" min="1"></td>
+                            <td class="text-center position-relative"><%- orderingHelper(item.ordering) %></td>
                             <td class="text-center">
                                 <%- timeHelper(item.created.user_name, item.created.time) %>
                             </td>
