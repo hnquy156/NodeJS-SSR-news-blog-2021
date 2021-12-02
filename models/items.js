@@ -42,4 +42,13 @@ module.exports = {
         if (options.task === 'delete-multi')
             return ItemsModels.deleteMany({_id: { $in: id}});
     },
+
+    saveItem: (item, options) => {
+        if (options.task === 'add') {
+            return ItemsModels(item).save();
+
+        }
+        if (options.task === 'edit')
+            return ItemsModels.deleteMany({_id: { $in: id}});
+    },
 }

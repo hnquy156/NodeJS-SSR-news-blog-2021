@@ -7,7 +7,17 @@ const items = new Schema({
 	name: String,
     status: String,
     ordering: String,
-
+    created: {
+        user_id: String,
+        user_name: String,
+        time: Date,
+    },
+    modified: {
+        user_id: String,
+        user_name: String,
+        time: Date,
+    },
+    content: String,
 });
 
 module.exports = mongoose.model(databaseConfigs.col_items, items);

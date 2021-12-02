@@ -92,11 +92,18 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	});
 });
 
-// Get FORM
-// router.get('/form(/:id)?', async (req, res) => {
+// Get FORM --- ADD/EDIT
+router.get('/form(/:id)?', async (req, res) => {
 	
-// 	res.render(`${folderView}/form`, {pageTitle: 'Items',})
-// });
+	res.render(`${folderView}/form`, {pageTitle: 'Items',});
+});
 
+// POST ADD/EDIT
+router.post('/form', async (req, res) => {
+	const item = req.body;
+
+	await MainModel.saveItem(item, {task: 'add'});
+	res.redirect(linkIndex);
+});
 
 module.exports = router;

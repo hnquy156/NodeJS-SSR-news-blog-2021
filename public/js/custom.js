@@ -84,6 +84,11 @@ $(document).ready(function () {
         }
     });
 
+    // Add Item Events
+    $('#admin-form-submit').click(function() {
+        $('#admin-form').submit();
+    });
+
 });
 
 
@@ -160,10 +165,6 @@ function sortList(field, order) {
     // $('#form-table').submit();
 }
 
-function submitForm(link) {
-    $('#admin-form').attr('action', link);
-    $('#admin-form').submit();
-}
 
 function createLink(exceptParams) {
     let pathname = window.location.pathname;
