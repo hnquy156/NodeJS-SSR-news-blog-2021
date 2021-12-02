@@ -14,6 +14,13 @@ const Validates = require(__path_validates + collectionName);
 const folderView = `${__path_views_admin}pages/${collectionName}`;
 const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
 
+/* GET SORT */
+router.get('/sort/:sortField/:sortType', async (req, res) => {
+	req.session.sortType		    = ParamsHelpers.getParam(req.params, 'sortType', 'asc');
+	req.session.sortField		    = ParamsHelpers.getParam(req.params, 'sortField', 'ordering');
+
+	res.redirect(linkIndex);
+});
 
 /* POST Delete multi */
 router.post('/change-ordering', async (req, res) => {
@@ -63,6 +70,9 @@ router.post('/change-status/:status', async (req, res) => {
 router.get('(/status/:status)?', async (req, res, next) => {
 	const condition = {};
 	const messages	= req.flash('notify');
+	const sortType = ParamsHelpers.getParam(req.session, 'sortType', 'asc');
+	const sortField = ParamsHelpers.getParam(req.session, 'sortField', 'ordering');
+	const sort = {[sortField]: sortType};
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
 	const currentPage = ParamsHelpers.getParam(req.query, 'page', 1);
 	const search_value = ParamsHelpers.getParam(req.query, 'search_value', '');
@@ -81,6 +91,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	const options = {
 		limit: pagination.itemsOnPerPage,
 		skip: (pagination.currentPage - 1) * pagination.itemsOnPerPage,
+		sort,
 	}
 	const items = await MainModel.getList(condition, options);
 
@@ -92,6 +103,8 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		filterStatus,
 		search_value,
 		pagination,
+		sortType,
+		sortField,
 	});
 });
 

@@ -5,6 +5,7 @@ module.exports = {
     getList: (condition, options) => {
         return ItemsModels
             .find(condition)
+            .sort(options.sort)
             .skip(options.skip)
             .limit(options.limit);
     },

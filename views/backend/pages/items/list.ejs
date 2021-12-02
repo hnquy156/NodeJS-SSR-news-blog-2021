@@ -7,6 +7,7 @@
 <% include ./../../helpers/time %>
 <% include ./../../helpers/ordering %>
 <% include ./../../helpers/checkbox %>
+<% include ./../../helpers/sort %>
 
 <%
     collection = 'items';
@@ -73,11 +74,11 @@
                             </div>
                         </th>
                         <th class="text-center">ID</th>
-                        <th class="text-center">Name</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Ordering</th>
-                        <th class="text-center">Created</th>
-                        <th class="text-center">Modified</th>
+                        <th class="text-center"><%- sortHelper(linkPrefix, 'Name', 'name', sortField, sortType) %></th>
+                        <th class="text-center"><%- sortHelper(linkPrefix, 'Status', 'status', sortField, sortType) %></th>
+                        <th class="text-center"><%- sortHelper(linkPrefix, 'Ordering', 'ordering', sortField, sortType) %></th>
+                        <th class="text-center"><%- sortHelper(linkPrefix, 'Created', 'created.time', sortField, sortType) %></th>
+                        <th class="text-center"><%- sortHelper(linkPrefix, 'Modified', 'modified.time', sortField, sortType) %></th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
