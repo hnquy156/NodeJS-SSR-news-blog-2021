@@ -2,6 +2,7 @@
 <% include ./../../helpers/selectbox %>
 <% include ./../../helpers/input %>
 <% include ./../../helpers/form-group %>
+<% include ./../../helpers/textarea %>
 <%
     collection = 'items';
     linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
@@ -14,7 +15,7 @@
         {label: 'name', input: inputHelper('name', item.name, 'text')},
         {label: 'status', input: selectboxHelper('status', statusSelectbox, item.status)},
         {label: 'ordering', input: inputHelper('ordering', item.ordering, 'number')},
-        {label: 'content', input: inputHelper('content', item.content, 'text')},
+        {label: 'content', input: textareaHelper('content', item.content, 'text')},
     ];
 %>
 
@@ -38,3 +39,21 @@
     </div>
 
 </div>
+
+<script src="/js/ckeditor5-build-decoupled-document/ckeditor.js"></script>
+<script>
+	DecoupledEditor
+		.create( document.querySelector( '#editor5' ) )
+		.then( editor => {
+			// The toolbar needs to be explicitly appended.
+			document.querySelector( '#toolbar-container' ).appendChild( editor.ui.view.toolbar.element );
+            
+            editor.model.document.on( 'change:data', () => {
+                document.querySelector( '#text-editor5' ).value = editor.getData();
+            } );
+			window.editor = editor;
+		} )
+		.catch( error => {
+			console.error( 'There was a problem initializing the editor.', error );
+		} );
+</script>
