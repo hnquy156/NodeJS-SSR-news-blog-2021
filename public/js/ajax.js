@@ -78,6 +78,30 @@ $(document).ready(function () {
             }
         })
     });
+
+    // Change Group ACP
+    $('.ajax-group-selectbox').change(function(e) {
+        e.preventDefault();
+        const element = $(this);
+        const id = element.data('id');
+        const group_id = element.val();
+        const group_name = element.find('option:checked').text();
+        const url = element.data('link');
+
+        $.ajax({
+            method: 'post',
+            url,
+            data: {
+                id,
+                group_id,
+                group_name,
+            },
+            success: (data) => {
+                showNotify(element, data.notify);
+            }
+        });
+    });
+
 });
 
 function showNotify(element, content, status = 'success') {

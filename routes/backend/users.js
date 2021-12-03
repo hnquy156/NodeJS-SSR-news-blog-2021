@@ -52,6 +52,16 @@ router.post('/delete/', async (req, res) => {
 	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'delete-multi', total: result.deletedCount});
 });
 
+/* GET Change Group of  */
+router.post('/change-group', async (req, res) => {
+	const id		    = ParamsHelpers.getParam(req.body, 'id', '');
+	const group_id      = ParamsHelpers.getParam(req.body, 'group_id', '');
+	const group_name    = ParamsHelpers.getParam(req.body, 'group_name', '');
+
+	const data = await MainModel.changeGroup(id, group_id, group_name, {task: 'change-group'});
+	res.send(data);
+});
+
 /* GET Change status one */
 router.get('/change-status/:status/:id', async (req, res) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
@@ -59,7 +69,6 @@ router.get('/change-status/:status/:id', async (req, res) => {
 
 	const data = await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one'});
 	res.send(data);
-	// NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-status-one'});
 });
 
 /* POST Change status multi */
@@ -138,7 +147,6 @@ router.post('/form', Validates.formValidate(body), async (req, res) => {
 	const errors = validationResult(req).array();
 	const pageTitle = item && item.id ? 'Edit' : 'Add';
 	const task = item && item.id ? 'edit' : 'add';
-	console.log(item)
 	
 	if (errors.length > 0) {
 		res.render(`${folderView}/form`, {pageTitle, errors, item, groups});

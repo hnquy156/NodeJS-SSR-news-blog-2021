@@ -8,10 +8,12 @@
 <% include ./../../helpers/ordering %>
 <% include ./../../helpers/checkbox %>
 <% include ./../../helpers/sort %>
+<% include ./../../helpers/selectbox %>
 
 <%
     collection = 'users';
     linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
+    const groupsSelectbox = groups.map(group => ({name: group.name, value: group.id}));
 %>
 <%- showNotify(messages) %>
 <!-- Search & Filter -->
@@ -87,7 +89,7 @@
                             <td class="text-center"><%= item.name %></td>
                             <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><%- orderingHelper(item.ordering, linkPrefix, item.id) %></td>
-                            <td class="text-center position-relative"><%= item.group.name %></td>
+                            <td class="text-center position-relative"><%- selectboxAjaxHelper('group_id', groupsSelectbox, item.group.id, item.id, linkPrefix) %></td>
                             <td class="text-center">
                                 <%- timeHelper(item.created.user_name, item.created.time) %>
                             </td>

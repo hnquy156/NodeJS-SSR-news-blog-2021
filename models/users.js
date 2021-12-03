@@ -63,6 +63,23 @@ module.exports = {
         }
     },
 
+    changeGroup: async (id, group_id, group_name, options) => {
+        const data = {
+            'group.id': group_id,
+            'group.name': group_name,
+            modified: {
+                user_id: '',
+                user_name: 'Admin',
+                time: Date.now(),
+            },
+        }
+
+        if (options.task === 'change-group') {
+            await UsersModels.updateOne({_id: id}, data);
+            return {id, notify: NotifyConfig.CHANGE_GROUP};
+        }
+    },
+
     deleteItem: (id, options) => {
         if (options.task === 'delete-one')
             return UsersModels.deleteOne({_id: id});
