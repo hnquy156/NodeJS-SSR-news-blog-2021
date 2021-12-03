@@ -87,7 +87,6 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
 	const currentPage = ParamsHelpers.getParam(req.query, 'page', 1);
 	const search_value = ParamsHelpers.getParam(req.query, 'search_value', '');
-	const filterStatus = await UtilsHelpers.createFilterStatus(currentStatus, collectionName, search_value);
 
 	if (currentStatus !== 'all') condition.status = currentStatus;
 	if (search_value) condition.name = new RegExp(search_value, 'i');
@@ -104,6 +103,8 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		skip: (pagination.currentPage - 1) * pagination.itemsOnPerPage,
 		sort,
 	}
+	
+	const filterStatus = await UtilsHelpers.createFilterStatus(currentStatus, collectionName, condition);
 	const items = await MainModel.getList(condition, options);
 
 	res.render(`${folderView}/list`, { 

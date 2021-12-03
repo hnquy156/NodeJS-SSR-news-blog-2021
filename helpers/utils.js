@@ -1,5 +1,5 @@
 
-const createFilterStatus = async (currentStatus, collection, search_value) => {
+const createFilterStatus = async (currentStatus, collection, condition = {}) => {
     const ItemsModel = require(__path_schemas + collection);
     const filterStatus = [
         {name: 'All', value: 'all', color: 'secondary', count: 15},
@@ -7,11 +7,12 @@ const createFilterStatus = async (currentStatus, collection, search_value) => {
         {name: 'Inactive', value: 'inactive', color: 'secondary', count: 8},
     ];
     const promiseCount = filterStatus.map(element => {
-        const condition = element.value !== 'all' ? {status: element.value} : {};
-        if (search_value) condition.name = new RegExp(search_value, 'i');
+        let objWhere = {...condition};
+        if (element.value !== 'all') objWhere.status = element.value
+        else delete objWhere.status;
         if (element.value === currentStatus) element.color = 'info';
 
-        return ItemsModel.countDocuments(condition).then(count => {element.count = count});
+        return ItemsModel.countDocuments(objWhere).then(count => {element.count = count});
     });
     await Promise.all(promiseCount);
     return filterStatus;
