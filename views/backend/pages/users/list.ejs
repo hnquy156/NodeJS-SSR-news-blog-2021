@@ -15,7 +15,9 @@
     collection = 'users';
     linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
     const groupsSelectbox = groups.map(group => ({name: group.name, value: group.id}));
+    const groupsFilter = [{name: 'All', value: 'default'}, ...groupsSelectbox];
 %>
+
 <%- showNotify(messages) %>
 <!-- Search & Filter -->
 <div class="card card-info card-outline">
@@ -28,10 +30,13 @@
     </div>
     <div class="card-body">
         <div class="row justify-content-between">
-            <div class="mb-1">
+            <div class="mb-1 col-3">
                 <%- filterStatusHelper(filterStatus, search_value, linkPrefix) %>
             </div>
-            <div class="mb-1">
+            <div class="mb-1 col-4">
+                <%- selectboxHelper('group_filter', groupsFilter, selectingGroupID) %>
+            </div>
+            <div class="mb-1 col-5">
                 <form action="" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control form-control-sm" name="search_value" value="<%= search_value %>" style="min-width: 300px">

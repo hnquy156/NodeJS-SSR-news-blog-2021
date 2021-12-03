@@ -103,6 +103,12 @@ $(document).ready(function () {
         $('input[name="group_name"]').val(group_name);
     });
 
+    // Filter by Group User
+    $('select[name="group_filter"]').change(function() {
+        let path = window.location.pathname.split('/');
+        let link = '/' + path[1] + '/' + path[2] + '/filter-group/' + $(this).val();
+        window.location.href = link;
+    });
 });
 
 

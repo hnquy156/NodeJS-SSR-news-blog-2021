@@ -17,6 +17,13 @@ const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
 const pageTitle = "Users Management";
 
 
+/* GET Filter by Group */
+router.get('/filter-group/:group_id', async (req, res) => {
+	req.session.group_id	= ParamsHelpers.getParam(req.params, 'group_id', 'default');
+	//selectingGroupID
+	res.redirect(linkIndex);
+});
+
 /* GET SORT */
 router.get('/sort/:sortField/:sortType', async (req, res) => {
 	req.session.sortType		    = ParamsHelpers.getParam(req.params, 'sortType', 'asc');
@@ -84,6 +91,7 @@ router.post('/change-status/:status', async (req, res) => {
 router.get('(/status/:status)?', async (req, res, next) => {
 	const condition = {};
 	const messages	= req.flash('notify');
+	const selectingGroupID	= ParamsHelpers.getParam(req.session, 'group_id', 'default');
 	const sortType = ParamsHelpers.getParam(req.session, 'sortType', 'asc');
 	const sortField = ParamsHelpers.getParam(req.session, 'sortField', 'ordering');
 	const sort = {[sortField]: sortType};
@@ -94,6 +102,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 
 	if (currentStatus !== 'all') condition.status = currentStatus;
 	if (search_value) condition.name = new RegExp(search_value, 'i');
+	if (selectingGroupID !== 'default') condition['group.id'] = selectingGroupID;
 
 	const pagination = {
 		itemsTotal: await MainModel.countItems(condition),
@@ -116,6 +125,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		messages,
 		items,
 		groups,
+		selectingGroupID,
 		currentStatus,
 		filterStatus,
 		search_value,
