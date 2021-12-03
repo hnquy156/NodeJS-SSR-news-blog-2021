@@ -7,7 +7,7 @@
             xhtml += `<option value="${option.value}" ${selected}>${option.name}</option>`;
         })
 
-        return `<select id="form[status]" name="${name}" class="custom-select custom-select-sm">
+        return `<select name="${name}" class="custom-select custom-select-sm">
                     ${xhtml}
                 </select>`
     }

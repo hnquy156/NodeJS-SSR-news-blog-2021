@@ -72,6 +72,7 @@
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Name', 'name', sortField, sortType) %></th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Status', 'status', sortField, sortType) %></th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Ordering', 'ordering', sortField, sortType) %></th>
+                        <th class="text-center"><%- sortHelper(linkPrefix, 'Group', 'group.name', sortField, sortType) %></th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Created', 'created.time', sortField, sortType) %></th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Modified', 'modified.time', sortField, sortType) %></th>
                         <th class="text-center">Action</th>
@@ -86,6 +87,7 @@
                             <td class="text-center"><%= item.name %></td>
                             <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><%- orderingHelper(item.ordering, linkPrefix, item.id) %></td>
+                            <td class="text-center position-relative"><%= item.group.name %></td>
                             <td class="text-center">
                                 <%- timeHelper(item.created.user_name, item.created.time) %>
                             </td>

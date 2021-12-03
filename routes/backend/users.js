@@ -5,6 +5,7 @@ const { body, validationResult } = require('express-validator');
 
 const collectionName = 'users';
 const MainModel = require(__path_models + collectionName);
+const GroupsModel = require(__path_models + 'groups');
 const UtilsHelpers = require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
 const NotifyHelpers = require(__path_helpers + 'notify');
@@ -96,13 +97,16 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		limit: pagination.itemsOnPerPage,
 		skip: (pagination.currentPage - 1) * pagination.itemsOnPerPage,
 		sort,
+		select: null,
 	}
 	const items = await MainModel.getList(condition, options);
+	const groups = await GroupsModel.getList({}, {select: 'name'});
 
 	res.render(`${folderView}/list`, { 
 		pageTitle,
 		messages,
 		items,
+		groups,
 		currentStatus,
 		filterStatus,
 		search_value,
@@ -115,23 +119,29 @@ router.get('(/status/:status)?', async (req, res, next) => {
 // Get FORM --- ADD/EDIT
 router.get('/form(/:id)?', async (req, res) => {
 	const id = ParamsHelpers.getParam(req.params, 'id', '');
-	let item = {id: '', name: '', ordering: 1, content: ''};
+	let item = {id: '', name: '', ordering: 1, content: '', group_id: '', group_name: ''};
+	const groups = await GroupsModel.getList({}, {select: 'name'});
 	const errors = [];
 	const pageTitle = id ? 'Edit' : 'Add';
 	item = id ? await MainModel.getItem(id) : item;
+
+	item.group_id   = item.group ? item.group.id : '';
+	item.group_name = item.group ? item.group.name : '';
 	
-	res.render(`${folderView}/form`, {pageTitle, errors, item});
+	res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
 });
 
 // POST ADD/EDIT
 router.post('/form', Validates.formValidate(body), async (req, res) => {
 	const item = req.body;
+	const groups = await GroupsModel.getList({}, {select: 'name'});
 	const errors = validationResult(req).array();
 	const pageTitle = item && item.id ? 'Edit' : 'Add';
 	const task = item && item.id ? 'edit' : 'add';
+	console.log(item)
 	
 	if (errors.length > 0) {
-		res.render(`${folderView}/form`, {pageTitle, errors, item});
+		res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
 
 	} else {
 		await MainModel.saveItem(item, {task});

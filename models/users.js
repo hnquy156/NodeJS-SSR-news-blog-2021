@@ -71,7 +71,9 @@ module.exports = {
     },
 
     saveItem: (item, options) => {
-        
+        item['group.id'] = item.group_id;
+        item['group.name'] = item.group_name;
+
         if (options.task === 'add') {
             item.created = {
                 user_id: '',

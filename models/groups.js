@@ -6,7 +6,7 @@ const GroupsModels = require(__path_schemas + 'groups');
 module.exports = {
     getList: (condition, options) => {
         return GroupsModels
-            .find(condition)
+            .find(condition, options.select)
             .sort(options.sort)
             .skip(options.skip)
             .limit(options.limit);

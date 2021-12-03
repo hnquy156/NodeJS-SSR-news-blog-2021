@@ -11,10 +11,14 @@
             {value: 'active', name: 'Active'},
             {value: 'inactive', name: 'Inactive'},
         ];
+    const groupsSelectbox = groups.map(group => ({name: group.name, value: group.id}));
+    groupsSelectbox.unshift({value: 'default', name: '- Select Group -'});
+
     const formGroup = [
         {label: 'Name', input: inputHelper('name', item.name, 'text')},
         {label: 'Status', input: selectboxHelper('status', statusSelectbox, item.status)},
         {label: 'Ordering', input: inputHelper('ordering', item.ordering, 'number')},
+        {label: 'Group', input: selectboxHelper('group_id', groupsSelectbox, item.group_id)},
         {label: 'Content', input: textareaHelper('content', item.content, 'text')},
     ];
 %>
@@ -27,6 +31,7 @@
             <%- formGroupHelper(formGroup) %>
             <div class="form-group row">
                 <%- inputHelper('id', item.id, 'hidden') %>
+                <%- inputHelper('group_name', item.group_name, 'hidden') %>
             </div>
         </form>`
         

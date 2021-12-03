@@ -20,7 +20,7 @@ module.exports = {
         body('status', NotifyConfigs.ERROR_STATUS).custom(value => value !== options.status.value),
 
         // group
-        body('group', NotifyConfigs.ERROR_GROUP).custom(value => value !== options.group.value),
+        body('group_id', NotifyConfigs.ERROR_GROUP).custom(value => value !== options.group.value),
 
         // ordering
         body('ordering', util.format(NotifyConfigs.ERROR_ORDERING, options.ordering.gt, options.ordering.lt))

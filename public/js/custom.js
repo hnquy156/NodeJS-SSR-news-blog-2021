@@ -97,6 +97,12 @@ $(document).ready(function () {
         $('#admin-form').submit();
     });
 
+    // Add group_name to Input's value from selecting on selectbox of USER FORM
+    $('select[name="group_id"]').change(function() {
+        const group_name = $(this).find('option:selected').text();
+        $('input[name="group_name"]').val(group_name);
+    });
+
 });
 
 
