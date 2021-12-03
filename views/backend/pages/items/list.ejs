@@ -85,7 +85,7 @@
                             <td class="text-center"><%= index + 1 %></td>
                             <td class="text-center"><%= item.name %></td>
                             <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
-                            <td class="text-center position-relative"><%- orderingHelper(item.ordering) %></td>
+                            <td class="text-center position-relative"><%- orderingHelper(item.ordering, linkPrefix, item.id) %></td>
                             <td class="text-center">
                                 <%- timeHelper(item.created.user_name, item.created.time) %>
                             </td>

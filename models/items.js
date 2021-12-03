@@ -1,5 +1,7 @@
-const ItemsModels = require(__path_schemas + 'items');
+const util = require('util');
 
+const NotifyConfig = require(__path_configs + 'notify');
+const ItemsModels = require(__path_schemas + 'items');
 
 module.exports = {
     getList: (condition, options) => {
@@ -18,7 +20,7 @@ module.exports = {
         return ItemsModels.countDocuments(condition);
     },
 
-    changeStatus: (id, currentStatus, options) => {
+    changeStatus: async (id, currentStatus, options) => {
 	    const status		= currentStatus === 'active' ? 'inactive' : 'active';
         const data = {
             status,
@@ -30,7 +32,8 @@ module.exports = {
         }
 
         if (options.task === 'change-status-one') {
-            return ItemsModels.updateOne({_id: id}, data);
+            await ItemsModels.updateOne({_id: id}, data);
+            return {id, status, notify: NotifyConfig.CHANGE_STATUS_SUCCESS};
         }
         if (options.task === 'change-status-multi') {
             data.status = currentStatus;
@@ -48,7 +51,8 @@ module.exports = {
             },
         }
         if (options.task === 'change-ordering-one') {
-            return ItemsModels.updateOne({_id: id}, data);
+            await ItemsModels.updateOne({_id: id}, data);
+            return {id, ordering: +ordering, notify: NotifyConfig.CHANGE_ORDERING_SUCCESS}
         }
         if (options.task === 'change-ordering-multi') {
             const promiseOrdering = id.map((ID, index) => {

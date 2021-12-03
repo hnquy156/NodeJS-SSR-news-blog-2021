@@ -28,8 +28,9 @@ router.post('/change-ordering', async (req, res) => {
 	const ordering		= ParamsHelpers.getParam(req.body, 'ordering', '');
 	const task 			= Array.isArray(id) ? 'change-ordering-multi' : 'change-ordering-one';
 
-	await MainModel.changeOrdering(id, ordering, {task});
-	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-ordering'});
+	const data = await MainModel.changeOrdering(id, ordering, {task});
+	res.send(data);
+	// NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-ordering'});
 });
 
 /* GET Delete one */
@@ -53,8 +54,9 @@ router.get('/change-status/:status/:id', async (req, res) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
 
-	await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one'});
-	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-status-one'});
+	const data = await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one'});
+	res.send(data);
+	// NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-status-one'});
 });
 
 /* POST Change status multi */
