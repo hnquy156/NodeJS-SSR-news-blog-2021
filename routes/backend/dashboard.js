@@ -3,7 +3,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('(/dashboard)?', function (req, res, next) {
-	res.render('backend/pages/dashboard', { pageTitle: 'Express' });
+	res.render('backend/pages/dashboard', { pageTitle: 'Dashboard' });
 });
 
 /* GET users listing. */

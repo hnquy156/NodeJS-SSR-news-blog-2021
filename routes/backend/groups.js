@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { body, validationResult } = require('express-validator');
 
-const collectionName = 'items';
+const collectionName = 'groups';
 const MainModel = require(__path_models + collectionName);
 const UtilsHelpers = require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
@@ -13,7 +13,7 @@ const Validates = require(__path_validates + collectionName);
 
 const folderView = `${__path_views_admin}pages/${collectionName}`;
 const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
-const pageTitle = "Items Management";
+const pageTitle = 'Groups Management';
 
 
 /* GET SORT */
@@ -32,7 +32,6 @@ router.post('/change-ordering', async (req, res) => {
 
 	const data = await MainModel.changeOrdering(id, ordering, {task});
 	res.send(data);
-	// NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-ordering'});
 });
 
 /* GET Delete one */
@@ -51,6 +50,15 @@ router.post('/delete/', async (req, res) => {
 	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'delete-multi', total: result.deletedCount});
 });
 
+/* GET Change GROUP ACP */
+router.get('/change-group-acp/:id/:group_acp', async (req, res) => {
+	const currentGroupACP = ParamsHelpers.getParam(req.params, 'group_acp', 'no');
+	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
+
+	const data = await MainModel.changeGroupACP(id, currentGroupACP, {task: 'change-group-acp'});
+	res.send(data);
+});
+
 /* GET Change status one */
 router.get('/change-status/:status/:id', async (req, res) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
@@ -58,7 +66,6 @@ router.get('/change-status/:status/:id', async (req, res) => {
 
 	const data = await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one'});
 	res.send(data);
-	// NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-status-one'});
 });
 
 /* POST Change status multi */
@@ -115,7 +122,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 // Get FORM --- ADD/EDIT
 router.get('/form(/:id)?', async (req, res) => {
 	const id = ParamsHelpers.getParam(req.params, 'id', '');
-	let item = {id: '', name: '', ordering: 1, content: ''};
+	let item = {id: '', name: '', ordering: 1, content: '', group_acp: ''};
 	const errors = [];
 	const pageTitle = id ? 'Edit' : 'Add';
 	item = id ? await MainModel.getItem(id) : item;

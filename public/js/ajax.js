@@ -27,12 +27,33 @@ $(document).ready(function () {
         });
     });
 
+    // Change Group ACP
+    $('.ajax-group-acp').click(function(e) {
+        e.preventDefault();
+        const element = $(this);
+        const url = element.attr('href');
+        const preGroupACP = element.data('group_acp');
+        $.ajax({
+            method: 'get',
+            url,
+            success: (data) => {
+                const icon = {
+                    yes: 'fa fa-2x fa-check-square',
+                    no: 'fa fa-2x fa-square'
+                }
+                element.attr('href', url.replace(preGroupACP, data.group_acp));
+                element.find('i').attr('class', icon[data.group_acp]);
+                showNotify(element, data.notify);
+            }
+        });
+    });
+
     // CHANGE ORDERING //
     $('.ajax-ordering').change(function(e) {
         const element = $(this);
         const id = element.data('id');
         const url = element.data('link');
-        let ordering = element.val();
+        let ordering = +element.val();
         
         if (ordering <= 0) {
             showNotify(element, 'Ordering phải là giá trị lớn hơn 0!!!', 'error');

@@ -4,16 +4,22 @@
 <% include ./../../helpers/form-group %>
 <% include ./../../helpers/textarea %>
 <%
-    collection = 'items';
+    collection = 'groups';
     linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
     const statusSelectbox = [
             {value: 'default', name: '- Select status -'},
             {value: 'active', name: 'Active'},
             {value: 'inactive', name: 'Inactive'},
         ];
+    const groupACPSelectbox = [
+        {value: 'default', name: '- Select Group ACP -'},
+        {value: 'yes', name: 'Yes'},
+        {value: 'no', name: 'No'},
+    ];
     const formGroup = [
         {label: 'Name', input: inputHelper('name', item.name, 'text')},
         {label: 'Status', input: selectboxHelper('status', statusSelectbox, item.status)},
+        {label: 'Group ACP', input: selectboxHelper('group_acp', groupACPSelectbox, item.group_acp)},
         {label: 'Ordering', input: inputHelper('ordering', item.ordering, 'number')},
         {label: 'Content', input: textareaHelper('content', item.content, 'text')},
     ];
@@ -48,7 +54,6 @@
 			// The toolbar needs to be explicitly appended.
 			document.querySelector( '#toolbar-container' ).appendChild( editor.ui.view.toolbar.element );
             document.querySelector( '#text-editor5' ).value = editor.getData();
-            
             editor.model.document.on( 'change:data', () => {
                 document.querySelector( '#text-editor5' ).value = editor.getData();
             } );
