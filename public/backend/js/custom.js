@@ -109,6 +109,11 @@ $(document).ready(function () {
         let link = '/' + path[1] + '/' + path[2] + '/filter-group/' + $(this).val();
         window.location.href = link;
     });
+
+    // Hide Notify
+    setTimeout(() => {
+        $('#close-notify').click();
+    }, 5000);
 });
 
 
