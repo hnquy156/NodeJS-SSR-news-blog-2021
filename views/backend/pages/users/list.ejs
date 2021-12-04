@@ -13,10 +13,11 @@
 <% include ./../../helpers/image %>
 
 <%
-    collection = 'users';
-    linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
+    const collection = 'users';
+    const linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
     const groupsSelectbox = groups.map(group => ({name: group.name, value: group.id}));
     const groupsFilter = [{name: 'All', value: 'default'}, ...groupsSelectbox];
+    const folderUploads = `/uploads/${collection}`;
 %>
 
 <%- showNotify(messages) %>
@@ -95,7 +96,7 @@
                             <td class="text-center"><%- checkboxHelper(index, item.id) %></td>
                             <td class="text-center"><%= index + 1 %></td>
                             <td class="text-center"><%- highlightHelper(item.name, search_value) %></td>
-                            <td class="text-center"><%- item.avatar %></td>
+                            <td class="text-center"><%- imageHelper(item.avatar, folderUploads, 'mini') %></td>
                             <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><%- orderingHelper(item.ordering, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><%- selectboxAjaxHelper('group_id', groupsSelectbox, item.group.id, item.id, linkPrefix) %></td>

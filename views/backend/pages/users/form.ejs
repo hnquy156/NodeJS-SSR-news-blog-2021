@@ -3,9 +3,10 @@
 <% include ./../../helpers/input %>
 <% include ./../../helpers/form-group %>
 <% include ./../../helpers/textarea %>
+<% include ./../../helpers/image %>
 <%
-    collection = 'users';
-    linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
+    const collection = 'users';
+    const linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
     const statusSelectbox = [
             {value: 'default', name: '- Select status -'},
             {value: 'active', name: 'Active'},
@@ -13,7 +14,7 @@
         ];
     const groupsSelectbox = groups.map(group => ({name: group.name, value: group.id}));
     groupsSelectbox.unshift({value: 'default', name: '- Select Group -'});
-
+    const folderUploads = `/uploads/${collection}`;
     const formGroup = [
         {label: 'Name', input: inputHelper('name', item.name, 'text')},
         {label: 'Status', input: selectboxHelper('status', statusSelectbox, item.status)},
@@ -21,6 +22,7 @@
         {label: 'Group', input: selectboxHelper('group_id', groupsSelectbox, item.group_id)},
         {label: 'Content', input: textareaHelper('content', item.content, 'text')},
         {label: 'Avatar', input: inputHelper('avatar', item.avatar, 'file')},
+        {label: 'Avatar Current', input: imageHelper(item.avatar, folderUploads)},
     ];
 %>
 
@@ -33,6 +35,7 @@
             <div class="form-group row">
                 <%- inputHelper('id', item.id, 'hidden') %>
                 <%- inputHelper('group_name', item.group_name, 'hidden') %>
+                <%- inputHelper('avatar_old', item.avatar || '', 'hidden') %>
             </div>
         </form>`
         

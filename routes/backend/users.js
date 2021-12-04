@@ -11,6 +11,7 @@ const ParamsHelpers = require(__path_helpers + 'params');
 const NotifyHelpers = require(__path_helpers + 'notify');
 const FileHelpers = require(__path_helpers + 'file');
 const systemConfigs = require(__path_configs + 'system');
+const NotifyConfigs = require(__path_configs + 'notify');
 const Validates = require(__path_validates + collectionName);
 
 const folderView = `${__path_views_admin}pages/${collectionName}`;
@@ -27,10 +28,26 @@ router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValida
 	const pageTitle = item && item.id ? 'Edit' : 'Add';
 	const task = item && item.id ? 'edit' : 'add';
 	
+	if (req.errorMulter) {
+		if (req.errorMulter.code && req.errorMulter.code === 'LIMIT_FILE_SIZE')
+			errors.push({param: 'avatar', msg: NotifyConfigs.ERROR_FILE_LIMIT});
+		else
+			errors.push({param: 'avatar', msg: req.errorMulter});
+	} else if (!req.file && task === 'add') {
+		errors.push({param: 'avatar', msg: NotifyConfigs.ERROR_FILE_REQUIRE});
+	}
+
 	if (errors.length > 0) {
+		if (req.file) FileHelpers.removeFile(folderUploads + req.file.filename);
 		res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
 
 	} else {
+		if (!req.file && task === 'edit') {
+			item.avatar = item.avatar_old
+		} else {
+			item.avatar = req.file.filename;
+			FileHelpers.removeFile(folderUploads + item.avatar_old);
+		}
 		await MainModel.saveItem(item, {task});
 		NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task});
 	}

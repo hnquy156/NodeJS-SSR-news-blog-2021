@@ -55,3 +55,11 @@ tr.my-read-only {
 .custom-select-sm {
     font-size: 100%;
 }
+
+.img-avatar-mini {
+    height: 40px;
+}
+
+.img-avatar-medium {
+    max-height: 400px ;
+}

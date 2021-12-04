@@ -20,9 +20,7 @@ const uploadFile = (fieldname, destinationFolder, fileSizeMb = 0.5, filenameLeng
         fileFilter: (req, file, cb) => {
             const extname = fileExtensions.test(path.extname(file.originalname));
             const mimetype = fileExtensions.test(file.mimetype);
-            console.log(extname)
-            console.log(mimetype)
-            if(extname && mimetype) {
+            if(extname || mimetype) {
                 return cb(null, true)
             }
             return cb(NotifyConfig.ERROR_FILE_EXTENSION, false)
