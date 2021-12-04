@@ -20,6 +20,7 @@
         {label: 'Ordering', input: inputHelper('ordering', item.ordering, 'number')},
         {label: 'Group', input: selectboxHelper('group_id', groupsSelectbox, item.group_id)},
         {label: 'Content', input: textareaHelper('content', item.content, 'text')},
+        {label: 'Avatar', input: inputHelper('avatar', item.avatar, 'file')},
     ];
 %>
 
@@ -27,7 +28,7 @@
 
 <div class="card card-info card-outline">
     <div class="card-body">
-        <form action="<%= linkPrefix %>/form" method="post" class="mb-0" id="admin-form">
+        <form action="<%= linkPrefix %>/form" method="post" class="mb-0" id="admin-form" enctype="multipart/form-data">
             <%- formGroupHelper(formGroup) %>
             <div class="form-group row">
                 <%- inputHelper('id', item.id, 'hidden') %>

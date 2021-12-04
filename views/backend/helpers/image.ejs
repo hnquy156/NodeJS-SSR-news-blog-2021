@@ -1,0 +1,6 @@
+<% 
+    imageHelper = (avatar, value, type, id = null) => {
+        const input_id = id ? `id=${id}` : '';
+        return `<image src="" type="${type}" value="${value}" ${input_id} class="form-control form-control-sm">`
+    }
+%>
