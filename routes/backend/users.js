@@ -38,7 +38,7 @@ router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValida
 	}
 
 	if (errors.length > 0) {
-		if (req.file) FileHelpers.removeFile(folderUploads + req.file.filename);
+		if (req.file) FileHelpers.removeFile(folderUploads, req.file.filename);
 		res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
 
 	} else {
@@ -46,7 +46,7 @@ router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValida
 			item.avatar = item.avatar_old
 		} else {
 			item.avatar = req.file.filename;
-			FileHelpers.removeFile(folderUploads + item.avatar_old);
+			FileHelpers.removeFile(folderUploads, item.avatar_old);
 		}
 		await MainModel.saveItem(item, {task});
 		NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task});
@@ -83,7 +83,7 @@ router.get('/sort/:sortField/:sortType', async (req, res) => {
 	res.redirect(linkIndex);
 });
 
-/* POST Delete multi */
+/* POST change ordering  */
 router.post('/change-ordering', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.body, 'cid', '');
 	const ordering		= ParamsHelpers.getParam(req.body, 'ordering', '');

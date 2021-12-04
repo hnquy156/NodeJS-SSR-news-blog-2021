@@ -31,9 +31,10 @@ const uploadFile = (fieldname, destinationFolder, fileSizeMb = 0.5, filenameLeng
     }).single(fieldname);
 }
 
-const removeFile = (path) => {
-    if (path && fs.existsSync(path)) {
-        return fs.unlink(path, (err) => {
+const removeFile = (folder, filename) => {
+    let link = folder + filename;
+    if (filename && fs.existsSync(link)) {
+        fs.unlink(link, (err) => {
             if (err) throw err;
         });
     }

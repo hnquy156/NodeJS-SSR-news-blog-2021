@@ -1,7 +1,10 @@
 const util = require('util');
+const fs = require('fs');
 
 const NotifyConfig = require(__path_configs + 'notify');
 const UsersModels = require(__path_schemas + 'users');
+const FileHelpers = require(__path_helpers + 'file');
+const folderUploads = `${__path_uploads}users/`;
 
 module.exports = {
     getList: (condition, options) => {
@@ -80,11 +83,17 @@ module.exports = {
         }
     },
 
-    deleteItem: (id, options) => {
-        if (options.task === 'delete-one')
+    deleteItem: async (id, options) => {
+        if (options.task === 'delete-one') {
+            const item = await UsersModels.findById(id);
+            FileHelpers.removeFile(folderUploads, item.avatar);
             return UsersModels.deleteOne({_id: id});
-        if (options.task === 'delete-multi')
+        }
+        if (options.task === 'delete-multi') {
+            const items = await UsersModels.find({_id: { $in: id}}, 'avatar');
+            items.forEach(item => FileHelpers.removeFile(folderUploads, item.avatar));
             return UsersModels.deleteMany({_id: { $in: id}});
+        }
     },
 
     saveItem: (item, options) => {
