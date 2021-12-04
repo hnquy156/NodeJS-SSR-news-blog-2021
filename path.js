@@ -2,6 +2,7 @@ module.exports = {
     folderApp: 'app',
     folderConfig: 'configs',
     folderPublic: 'public',
+    folderUploads: 'uploads',
     folderRoutes: 'routes',
     folderViews: 'views',
     folderViewsAdmin: 'backend',

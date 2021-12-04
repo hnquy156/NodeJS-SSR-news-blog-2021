@@ -9,13 +9,47 @@ const GroupsModel = require(__path_models + 'groups');
 const UtilsHelpers = require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
 const NotifyHelpers = require(__path_helpers + 'notify');
+const FileHelpers = require(__path_helpers + 'file');
 const systemConfigs = require(__path_configs + 'system');
 const Validates = require(__path_validates + collectionName);
 
 const folderView = `${__path_views_admin}pages/${collectionName}`;
+const folderUploads = `${__path_uploads}${collectionName}/`;
 const linkIndex = `/${systemConfigs.prefixAdmin}/${collectionName}`;
 const pageTitle = "Users Management";
 
+
+// POST ADD/EDIT
+router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValidate(body), async (req, res) => {
+	const item = req.body;
+	const groups = await GroupsModel.getList({}, {select: 'name'});
+	const errors = validationResult(req).array();
+	const pageTitle = item && item.id ? 'Edit' : 'Add';
+	const task = item && item.id ? 'edit' : 'add';
+	
+	if (errors.length > 0) {
+		res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
+
+	} else {
+		await MainModel.saveItem(item, {task});
+		NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task});
+	}
+});
+
+// Get FORM --- ADD/EDIT
+router.get('/form(/:id)?', async (req, res) => {
+	const id = ParamsHelpers.getParam(req.params, 'id', '');
+	let item = {id: '', name: '', ordering: 1, content: '', group_id: '', group_name: ''};
+	const groups = await GroupsModel.getList({}, {select: 'name'});
+	const errors = [];
+	const pageTitle = id ? 'Edit' : 'Add';
+	item = id ? await MainModel.getItem(id) : item;
+
+	item.group_id   = item.group ? item.group.id : '';
+	item.group_name = item.group ? item.group.name : '';
+	
+	res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
+});
 
 /* GET Filter by Group */
 router.get('/filter-group/:group_id', async (req, res) => {
@@ -136,36 +170,6 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	});
 });
 
-// Get FORM --- ADD/EDIT
-router.get('/form(/:id)?', async (req, res) => {
-	const id = ParamsHelpers.getParam(req.params, 'id', '');
-	let item = {id: '', name: '', ordering: 1, content: '', group_id: '', group_name: ''};
-	const groups = await GroupsModel.getList({}, {select: 'name'});
-	const errors = [];
-	const pageTitle = id ? 'Edit' : 'Add';
-	item = id ? await MainModel.getItem(id) : item;
 
-	item.group_id   = item.group ? item.group.id : '';
-	item.group_name = item.group ? item.group.name : '';
-	
-	res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
-});
-
-// POST ADD/EDIT
-router.post('/form', Validates.formValidate(body), async (req, res) => {
-	const item = req.body;
-	const groups = await GroupsModel.getList({}, {select: 'name'});
-	const errors = validationResult(req).array();
-	const pageTitle = item && item.id ? 'Edit' : 'Add';
-	const task = item && item.id ? 'edit' : 'add';
-	
-	if (errors.length > 0) {
-		res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
-
-	} else {
-		await MainModel.saveItem(item, {task});
-		NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task});
-	}
-});
 
 module.exports = router;

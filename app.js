@@ -20,6 +20,7 @@ global.__path_views_frontend = __path_views + pathConfigs.folderViewsFrontend + 
 global.__path_configs = __path_base + pathConfigs.folderConfig + '/';
 global.__path_routes = __path_base + pathConfigs.folderRoutes + '/';
 global.__path_public = __path_base + pathConfigs.folderPublic + '/';
+global.__path_uploads = __path_public + pathConfigs.folderUploads + '/';
 global.__path_schemas = __path_base + pathConfigs.folderSchemas + '/';
 global.__path_models = __path_base + pathConfigs.folderModels + '/';
 global.__path_helpers = __path_base + pathConfigs.folderHelpers + '/';
