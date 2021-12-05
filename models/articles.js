@@ -5,6 +5,7 @@ const NotifyConfig = require(__path_configs + 'notify');
 const ArticlesModels = require(__path_schemas + 'articles');
 const FileHelpers = require(__path_helpers + 'file');
 const folderUploads = `${__path_uploads}articles/`;
+const stringsHelpers = require(__path_helpers + 'string');
 
 module.exports = {
     getList: (condition, options) => {
@@ -118,6 +119,7 @@ module.exports = {
     },
 
     saveItem: (item, options) => {
+        item.slug = stringsHelpers.changeToSlug(item.slug);
         item['group.id'] = item.group_id;
         item['group.name'] = item.group_name;
 

@@ -8,6 +8,7 @@ const options = {
     special: {value: 'default' },
     group: {value: 'default' },
     ordering: {gt: 0, lt: 100},
+    slug: {min: 3, max: 100},
     content: {min: 1, max: 100},
 }
 
@@ -29,6 +30,10 @@ module.exports = {
         // ordering
         body('ordering', util.format(NotifyConfigs.ERROR_ORDERING, options.ordering.gt, options.ordering.lt))
             .isInt(options.ordering),
+
+        // slug
+        body('slug', util.format(NotifyConfigs.ERROR_NAME, options.slug.min, options.slug.max))
+            .isLength(options.slug),
 
         // content
         body('content', util.format(NotifyConfigs.ERROR_NAME, options.content.min, options.content.max))

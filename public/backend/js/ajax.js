@@ -106,7 +106,7 @@ $(document).ready(function () {
         })
     });
 
-    // Change Group ACP
+    // Change Group of Item (user/category/...)
     $('.ajax-group-selectbox').change(function(e) {
         e.preventDefault();
         const element = $(this);

@@ -8,6 +8,7 @@ const items = new Schema({
     status: String,
     special: String,
     ordering: Number,
+    slug: String,
     thumb: String,
     group: {
         id: String,

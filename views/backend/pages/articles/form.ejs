@@ -21,10 +21,11 @@
     groupsSelectbox.unshift({value: 'default', name: '- Select Category -'});
     const folderUploads = `/uploads/${collection}`;
     const formGroup = [
-        {label: 'Name', input: inputHelper('name', item.name, 'text')},
+        {label: 'Name', input: inputHelper('name', item.name, 'text', 'name-form')},
         {label: 'Status', input: selectboxHelper('status', statusSelectbox, item.status)},
         {label: 'Special', input: selectboxHelper('special', specialSelectbox, item.special)},
         {label: 'Ordering', input: inputHelper('ordering', item.ordering, 'number')},
+        {label: 'Slug', input: inputHelper('slug', item.slug, 'text', 'slug-form')},
         {label: 'Category', input: selectboxHelper('group_id', groupsSelectbox, item.group_id)},
         {label: 'Content', input: textareaHelper('content', item.content, 'text')},
         {label: 'Thumb', input: inputHelper('thumb', item.thumb, 'file')},

@@ -57,7 +57,7 @@ router.post('/form', FileHelpers.upload('thumb', collectionName), Validates.form
 // Get FORM --- ADD/EDIT
 router.get('/form(/:id)?', async (req, res) => {
 	const id = ParamsHelpers.getParam(req.params, 'id', '');
-	let item = {id: '', name: '', ordering: 1, content: '', group_id: '', group_name: ''};
+	let item = {id: '', name: '', ordering: 1, content: '', group_id: '', group_name: '', slug: ''};
 	const categoryGroups = await CategoriesModels.getList({}, {select: 'name'});
 	const errors = [];
 	res.locals.sidebarActive = `${collectionName}|form`;;
