@@ -135,20 +135,18 @@ function showToast(type, content) {
 }
 
 function activeMenu() {
-    let searchParams = new URLSearchParams(window.location.search);
-    let controller = searchParams.get('controller');
-    let action = searchParams.get('action');
-
-    let $currentMenuItemLevel1 = $('.nav-sidebar > .nav-item > [data-active="' + controller + '"]');
+    
+    let [MenuLevel1, MenuLevel2] = $('#sidebar-active').data('active').split('|');
+    let $currentMenuItemLevel1 = $('.nav-sidebar > .nav-item > [data-active="' + MenuLevel1 + '"]');
     $currentMenuItemLevel1.addClass('active');
 
     let $navTreeview = $currentMenuItemLevel1.next();
     if ($navTreeview.length > 0) {
-        let $currentMenuItemLevel2 = $navTreeview.find('[data-active="' + action + '"]');
+        let $currentMenuItemLevel2 = $navTreeview.find('[data-active="' + MenuLevel2 + '"]');
         $currentMenuItemLevel2.addClass('active');
         $currentMenuItemLevel1.parent().addClass('menu-open');
     } else {
-        $('.nav-sidebar > .nav-item > [data-active="' + action + '"]').addClass('active');
+        $('.nav-sidebar > .nav-item > [data-active="' + MenuLevel2 + '"]').addClass('active');
     }
 }
 

@@ -27,6 +27,7 @@ router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValida
 	const errors = validationResult(req).array();
 	const pageTitle = item && item.id ? 'Edit' : 'Add';
 	const task = item && item.id ? 'edit' : 'add';
+	res.locals.sidebarActive = `${collectionName}|form`;
 	
 	if (req.errorMulter) {
 		if (req.errorMulter.code && req.errorMulter.code === 'LIMIT_FILE_SIZE')
@@ -59,6 +60,7 @@ router.get('/form(/:id)?', async (req, res) => {
 	let item = {id: '', name: '', ordering: 1, content: '', group_id: '', group_name: ''};
 	const groups = await GroupsModel.getList({}, {select: 'name'});
 	const errors = [];
+	res.locals.sidebarActive = `${collectionName}|form`;;
 	const pageTitle = id ? 'Edit' : 'Add';
 	item = id ? await MainModel.getItem(id) : item;
 
@@ -149,6 +151,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'all');
 	const currentPage = ParamsHelpers.getParam(req.query, 'page', 1);
 	const search_value = ParamsHelpers.getParam(req.query, 'search_value', '');
+	res.locals.sidebarActive = `${collectionName}|list`;
 
 	if (currentStatus !== 'all') condition.status = currentStatus;
 	if (search_value) condition.name = new RegExp(search_value, 'i');
