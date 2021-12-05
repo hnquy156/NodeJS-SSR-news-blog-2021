@@ -27,6 +27,33 @@ $(document).ready(function () {
         });
     });
 
+    // Change Special
+    $('.ajax-special').click(function(e) {
+        e.preventDefault();
+        const element = $(this);
+        const url = element.attr('href');
+        const preSpecial = element.data('special');
+        $.ajax({
+            method: 'get',
+            url,
+            success: (data) => {
+                const icon = {
+                    active: 'fas fa-check',
+                    inactive: 'fas fa-minus'
+                }
+                const classColor = {
+                    active: 'btn-success',
+                    inactive: 'btn-danger'
+                }
+                element.attr('href', url.replace(preSpecial, data.special));
+                element.find('i').attr('class', icon[data.special]);
+                element.addClass(classColor[data.special]);
+                element.removeClass(classColor[preSpecial]);
+                showNotify(element, data.notify);
+            }
+        });
+    });
+
     // Change Group ACP
     $('.ajax-group-acp').click(function(e) {
         e.preventDefault();
