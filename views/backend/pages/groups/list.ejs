@@ -100,8 +100,9 @@
                         </tr>
                         <%
                     })%>
-                    
-
+                    <%
+                        if (items.length === 0) {%><tr><td class="text-center" colspan="10">Không có dữ liệu</td></tr><%}
+                    %>
                     
                 </tbody>
             </table>
