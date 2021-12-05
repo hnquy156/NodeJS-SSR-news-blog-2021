@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+	24 News by FreeHTML5.co
+	Twitter: https://twitter.com/fh5co
+	Facebook: https://fb.com/fh5co
+	URL: https://freehtml5.co
+-->
+<html lang="en" class="no-js">
+<head>
+    <% include ./../elements/head %>
+</head>
+<body>
+    <% include ./../elements/header %>
+    <% include ./../elements/navbar %>
+
+    <% include ./../elements/top-posts %>
+    <% include ./../elements/slide-posts-1 %>
+
+    <% if(true) {%>
+       <% include ./../elements/slide-posts-2 %>
+    <%}
+     %>
+    
+    <div class="container-fluid pb-4 pt-4 paddding">
+        <div class="container paddding">
+            <div class="row mx-0">
+                <div class="col-md-8 animate-box" data-animate-effect="fadeInLeft">
+                    <%- body %>
+                </div>
+                <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">
+                    <% include ./../elements/sidebar %>
+                </div>
+            </div>
+
+            <% include ./../elements/pagination %>
+        </div>
+    </div>
+    
+
+    <% include ./../elements/footer %>
+    <% include ./../elements/script %>
+
+</body>
+</html>
