@@ -12,9 +12,10 @@
             {value: 'inactive', name: 'Inactive'},
         ];
     const formGroup = [
-        {label: 'Name', input: inputHelper('name', item.name, 'text')},
+        {label: 'Name', input: inputHelper('name', item.name, 'text', 'name-form')},
         {label: 'Status', input: selectboxHelper('status', statusSelectbox, item.status)},
         {label: 'Ordering', input: inputHelper('ordering', item.ordering, 'number')},
+        {label: 'Slug', input: inputHelper('slug', item.slug, 'text', 'slug-form')},
         {label: 'Content', input: textareaHelper('content', item.content, 'text')},
     ];
 %>

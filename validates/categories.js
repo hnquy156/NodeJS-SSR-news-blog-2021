@@ -5,8 +5,8 @@ const NotifyConfigs = require(__path_configs + 'notify');
 const options = {
     name: {min: 3, max: 100},
     status: {value: 'default' },
-    special: {value: 'default' },
     ordering: {gt: 0, lt: 100},
+    slug: {min: 3, max: 100},
     content: {min: 1, max: 100},
 }
 
@@ -19,12 +19,13 @@ module.exports = {
         // status
         body('status', NotifyConfigs.ERROR_STATUS).custom(value => value !== options.status.value),
 
-        // status
-        body('special', NotifyConfigs.ERROR_SPECIAL).custom(value => value !== options.special.value),
-
         // ordering
         body('ordering', util.format(NotifyConfigs.ERROR_ORDERING, options.ordering.gt, options.ordering.lt))
             .isInt(options.ordering),
+
+        // slug
+        body('slug', util.format(NotifyConfigs.ERROR_NAME, options.slug.min, options.slug.max))
+            .isLength(options.slug),
 
         // content
         body('content', util.format(NotifyConfigs.ERROR_NAME, options.content.min, options.content.max))

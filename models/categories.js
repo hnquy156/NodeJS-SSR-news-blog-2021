@@ -2,6 +2,7 @@ const util = require('util');
 
 const NotifyConfig = require(__path_configs + 'notify');
 const CategoriesModels = require(__path_schemas + 'categories');
+const stringsHelpers = require(__path_helpers + 'string');
 
 module.exports = {
     getList: (condition, options) => {
@@ -87,6 +88,7 @@ module.exports = {
     },
 
     saveItem: (item, options) => {
+        item.slug = stringsHelpers.changeToSlug(item.slug);
         
         if (options.task === 'add') {
             item.created = {

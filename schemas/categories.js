@@ -7,6 +7,7 @@ const items = new Schema({
 	name: String,
     status: String,
     ordering: Number,
+    slug: String,
     created: {
         user_id: String,
         user_name: String,
