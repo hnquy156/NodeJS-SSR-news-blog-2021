@@ -8,9 +8,9 @@ const layout = __path_views_frontend + 'layouts/layout';
 const pageTitle = 'Category';
 
 /* GET category page. */
-router.get('/:category', async (req, res, next) => {
-	const categorySlug = req.params.category;
-	const categoryArticles = await ArticlesModel.getListFrontend({task: 'articles-in-category'}, {slug: categorySlug})
+router.get('/:categoryID', async (req, res, next) => {
+	const id = req.params.categoryID;
+	const categoryArticles = await ArticlesModel.getListFrontend({task: 'articles-in-category'}, {id: id});
 	
 	res.render(`${folderView}/index`, { 
 		pageTitle, 

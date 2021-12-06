@@ -5,7 +5,7 @@
 <div class="fh5co_tags_all">
     <% categoriesList.forEach(category => {%>
 
-        <a href="/category/<%= category.slug %>" class="fh5co_tagg"><%= category.name %></a>
+        <a href="/category/<%= category.id %>" class="fh5co_tagg"><%= category.name %></a>
         
         <%}) 
     %>
@@ -18,10 +18,14 @@
     randomArticles.forEach(article => {%>
         <div class="row pb-3">
             <div class="col-5 align-self-center">
-                <img src="<%= folderUploadArticles + article.thumb %>" alt="img" class="fh5co_most_trading"/>
+                <a href="/articles/<%= article._id %>/<%= article.slug %>">
+                    <img src="<%= folderUploadArticles + article.thumb %>" alt="img" class="fh5co_most_trading"/>
+                </a>
             </div>
             <div class="col-7 paddding">
-                <div class="most_fh5co_treding_font"> <%= formatSummaryHelper(article.name, 50) %></div>
+                <a style="color:black;" href="/articles/<%= article._id %>/<%= article.slug %>">
+                    <div class="most_fh5co_treding_font"> <%= formatSummaryHelper(article.name, 50) %></div>
+                </a>
                 <div class="most_fh5co_treding_font_123"> <%= formatDateHelper(article.created.time) %></div>
             </div>
         </div>

@@ -1,4 +1,9 @@
+<%
+    const folderUploadArticles = `/${folderUploads}/articles/`;
+%>
+<% include ./../../helpers/format %>
 <% include ./../../elements/top-posts-2 %>
+<% include ./../../elements/slide-posts-1 %>
 
 <div id="fh5co-single-content" class="container-fluid pb-4 pt-4 paddding">
     <div class="container paddding">
@@ -15,8 +20,7 @@
     </div>
 </div>
 
-<% include ./../../elements/slide-posts-1 %>
-<% include ./../../elements/slide-posts-2 %>
+<%- slidepostsElement('Articles in this category', categoryArticles) %>
 
 <!-- Articles Pages -->
 <!-- Parallax -->

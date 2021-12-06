@@ -37,22 +37,22 @@ module.exports = {
         if (options.task === 'articles-random') {
             return ArticlesModels.aggregate([
                 { $match: {status: 'active'}},
-                { $project: {_id: 1, name: 1, created: 1, thumb:1 }},
+                { $project: {_id: 1, name: 1, created: 1, thumb: 1, slug: 1 }},
                 { $sample: {size: 4}},
             ]);
         }
         if (options.task === 'articles-in-category') {
-            const category = await CategoriesModels.findOne({status: 'active',slug: params.slug});
-            if (category) condition['group.id'] = category.id
-            else {
-                return Promise.resolve([]);
-            };
-            
+            condition['group.id'] = params.id;
         }
+
         return ArticlesModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
     },
 
     getItem: (id, options = null) => {
+        return ArticlesModels.findById({_id: id});
+    },
+
+    getItemFrontend: (id, options = null) => {
         return ArticlesModels.findById({_id: id});
     },
 

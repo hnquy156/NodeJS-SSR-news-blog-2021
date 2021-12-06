@@ -38,7 +38,7 @@
 				<div class="footer_main_title py-3"> Category</div>
 				<ul class="footer_menu">
 					<% categoriesList.forEach(category => {%>
-						<li><a href="/category/<%= category.slug %>" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+						<li><a href="/category/<%= category.id %>" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
 							<%= category.name %></a></li>
 					<%}) 
 					%>
