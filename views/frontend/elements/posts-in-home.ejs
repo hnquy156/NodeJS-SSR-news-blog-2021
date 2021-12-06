@@ -3,7 +3,7 @@
     <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">News</div>
 </div>
 <%
-    categoryArticles.forEach(article => {
+    newArticles.forEach(article => {
         %>
         <div class="row pb-4">
             <div class="col-md-5">
@@ -20,7 +20,7 @@
         <%
     })
 
-    if (categoryArticles.length === 0) {
+    if (newArticles.length === 0) {
         %>
         <div class="row pb-4">
             <h2>Không có dữ liệu hiển thị</h2>

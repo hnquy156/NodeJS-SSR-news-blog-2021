@@ -3,6 +3,7 @@ const fs = require('fs');
 
 const NotifyConfig = require(__path_configs + 'notify');
 const ArticlesModels = require(__path_schemas + 'articles');
+const CategoriesModels = require(__path_schemas + 'categories');
 const FileHelpers = require(__path_helpers + 'file');
 const folderUploads = `${__path_uploads}articles/`;
 const stringsHelpers = require(__path_helpers + 'string');
@@ -16,7 +17,7 @@ module.exports = {
             .limit(options.limit);
     },
 
-    getListFrontend: (options = null, params = null) => {
+    getListFrontend: async (options = null, params = null) => {
         const condition = {status: 'active'};
         let select = 'name thumb slug content created group';
         let sort = {'created.time': 'desc'};
@@ -40,6 +41,15 @@ module.exports = {
                 { $sample: {size: 4}},
             ]);
         }
+        if (options.task === 'articles-in-category') {
+            const category = await CategoriesModels.findOne({status: 'active',slug: params.slug});
+            if (category) condition['group.id'] = category.id
+            else {
+                return Promise.resolve([]);
+            };
+            
+        }
+        return ArticlesModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
     },
 
     getItem: (id, options = null) => {

@@ -5,7 +5,7 @@
 <div class="fh5co_tags_all">
     <% categoriesList.forEach(category => {%>
 
-        <a href="#" class="fh5co_tagg"><%= category.name %></a>
+        <a href="/category/<%= category.slug %>" class="fh5co_tagg"><%= category.name %></a>
         
         <%}) 
     %>

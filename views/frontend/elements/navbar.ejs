@@ -17,7 +17,7 @@
                            aria-haspopup="true" aria-expanded="false">Category <span class="sr-only">(current)</span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink_1">
                             <% categoriesList.forEach(category => {%>
-                                <a class="dropdown-item" href="#"><%= category.name %></a>
+                                <a class="dropdown-item" href="/category/<%= category.slug %>"><%= category.name %></a>
                             <%}) 
                             %>
                         </div>
