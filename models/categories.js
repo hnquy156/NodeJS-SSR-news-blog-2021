@@ -13,6 +13,20 @@ module.exports = {
             .limit(options.limit);
     },
 
+    getListFrontend: (options = null, params = null) => {
+        const condition = {status: 'active'};
+        let select = 'name slug content created';
+        let sort = {'ordering': 'asc'};
+        let skip = null;
+        let limit = null;
+
+        if (options.task === 'categories-list') {
+            return CategoriesModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
+        }
+
+        
+    },
+
     getItem: (id, options = null) => {
         return CategoriesModels.findById({_id: id});
     },

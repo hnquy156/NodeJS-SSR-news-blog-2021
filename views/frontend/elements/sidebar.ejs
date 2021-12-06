@@ -1,56 +1,29 @@
 <div>
-    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Tags</div>
+    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Categories</div>
 </div>
 <div class="clearfix"></div>
 <div class="fh5co_tags_all">
-    <a href="#" class="fh5co_tagg">Business</a>
-    <a href="#" class="fh5co_tagg">Technology</a>
-    <a href="#" class="fh5co_tagg">Sport</a>
-    <a href="#" class="fh5co_tagg">Art</a>
-    <a href="#" class="fh5co_tagg">Lifestyle</a>
-    <a href="#" class="fh5co_tagg">Three</a>
-    <a href="#" class="fh5co_tagg">Photography</a>
-    <a href="#" class="fh5co_tagg">Lifestyle</a>
-    <a href="#" class="fh5co_tagg">Art</a>
-    <a href="#" class="fh5co_tagg">Education</a>
-    <a href="#" class="fh5co_tagg">Social</a>
-    <a href="#" class="fh5co_tagg">Three</a>
+    <% categoriesList.forEach(category => {%>
+
+        <a href="#" class="fh5co_tagg"><%= category.name %></a>
+        
+        <%}) 
+    %>
 </div>
+
 <div>
-    <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">Most Popular</div>
+    <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">Random Articles</div>
 </div>
-<div class="row pb-3">
-    <div class="col-5 align-self-center">
-        <img src="/frontend/images/download (1).jpg" alt="img" class="fh5co_most_trading"/>
-    </div>
-    <div class="col-7 paddding">
-        <div class="most_fh5co_treding_font"> Magna aliqua ut enim ad minim veniam quis nostrud.</div>
-        <div class="most_fh5co_treding_font_123"> April 18, 2016</div>
-    </div>
-</div>
-<div class="row pb-3">
-    <div class="col-5 align-self-center">
-        <img src="/frontend/images/allef-vinicius-108153.jpg" alt="img" class="fh5co_most_trading"/>
-    </div>
-    <div class="col-7 paddding">
-        <div class="most_fh5co_treding_font"> Enim ad minim veniam nostrud xercitation ullamco.</div>
-        <div class="most_fh5co_treding_font_123"> April 18, 2016</div>
-    </div>
-</div>
-<div class="row pb-3">
-    <div class="col-5 align-self-center">
-        <img src="/frontend/images/download (2).jpg" alt="img" class="fh5co_most_trading"/>
-    </div>
-    <div class="col-7 paddding">
-        <div class="most_fh5co_treding_font"> Magna aliqua ut enim ad minim veniam quis nostrud.</div>
-        <div class="most_fh5co_treding_font_123"> April 18, 2016</div>
-    </div>
-</div>
-<div class="row pb-3">
-    <div class="col-5 align-self-center"><img src="/frontend/images/seth-doyle-133175.jpg" alt="img"
-                                            class="fh5co_most_trading"/></div>
-    <div class="col-7 paddding">
-        <div class="most_fh5co_treding_font"> Magna aliqua ut enim ad minim veniam quis nostrud.</div>
-        <div class="most_fh5co_treding_font_123"> April 18, 2016</div>
-    </div>
-</div>
+<%
+    randomArticles.forEach(article => {%>
+        <div class="row pb-3">
+            <div class="col-5 align-self-center">
+                <img src="<%= folderUploadArticles + article.thumb %>" alt="img" class="fh5co_most_trading"/>
+            </div>
+            <div class="col-7 paddding">
+                <div class="most_fh5co_treding_font"> <%= formatSummaryHelper(article.name, 50) %></div>
+                <div class="most_fh5co_treding_font_123"> <%= formatDateHelper(article.created.time) %></div>
+            </div>
+        </div>
+        <%});
+%>

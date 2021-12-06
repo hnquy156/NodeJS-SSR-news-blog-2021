@@ -1,3 +1,8 @@
+<%
+	const folderUploadArticles = `/${folderUploads}/articles/`;
+%>
+<% include ./../helpers/format %>
+
 <div class="container-fluid fh5co_footer_bg pb-3">
 	<div class="container animate-box">
 		<div class="row">
@@ -32,50 +37,36 @@
 			<div class="col-12 col-md-3 col-lg-2">
 				<div class="footer_main_title py-3"> Category</div>
 				<ul class="footer_menu">
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
-							Business</a></li>
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
-							Entertainment</a></li>
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
-							Environment</a></li>
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
-							Health</a></li>
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Life
-							style</a></li>
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
-							Politics</a></li>
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
-							Technology</a></li>
-					<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; World</a>
-					</li>
+					<% categoriesList.forEach(category => {%>
+						<li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+							<%= category.name %></a></li>
+					<%}) 
+					%>
 				</ul>
 			</div>
 			<div class="col-12 col-md-5 col-lg-3 position_footer_relative">
 				<div class="footer_main_title py-3"> Most Viewed Posts</div>
-				<div class="footer_makes_sub_font"> Dec 31, 2016</div>
-				<a href="#" class="footer_post pb-4"> Success is not a good teacher failure makes you
-					humble </a>
-				<div class="footer_makes_sub_font"> Dec 31, 2016</div>
-				<a href="#" class="footer_post pb-4"> Success is not a good teacher failure makes you
-					humble </a>
-				<div class="footer_makes_sub_font"> Dec 31, 2016</div>
-				<a href="#" class="footer_post pb-4"> Success is not a good teacher failure makes you
-					humble </a>
+				
+				<%
+					for(let i = 0; i < 3; ++i) {
+						const article = specialArticles[i];
+						%>
+						<div class="footer_makes_sub_font"> <%= formatDateHelper(article.created.time) %></div>
+						<a href="#" class="footer_post pb-4"> <%= formatSummaryHelper(article.name, 100) %> </a>
+						<%
+					}
+				%>
+				
 				<div class="footer_position_absolute"><img src="/frontend/images/footer_sub_tipik.png" alt="img"
 						class="width_footer_sub_img" /></div>
 			</div>
 			<div class="col-12 col-md-12 col-lg-4 ">
 				<div class="footer_main_title py-3"> Last Modified Posts</div>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/allef-vinicius-108153.jpg"
-						alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/32-450x260.jpg" alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/download (1).jpg" alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/science-578x362.jpg" alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/vil-son-35490.jpg" alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/zack-minor-15104.jpg" alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/download.jpg" alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/download (2).jpg" alt="img" /></a>
-				<a href="#" class="footer_img_post_6"><img src="/frontend/images/ryan-moreno-98837.jpg" alt="img" /></a>
+				
+				<% newArticles.forEach(article => {%>
+					<a href="#" class="footer_img_post_6"><img src="<%= folderUploadArticles + article.thumb %>" alt="img" /></a>
+				<%}) 
+				%>
 			</div>
 		</div>
 		<div class="row justify-content-center pt-2 pb-4">

@@ -18,6 +18,7 @@ $(document).ready(function () {
                     active: 'btn-success',
                     inactive: 'btn-danger'
                 }
+                element.data('status', data.status);
                 element.attr('href', url.replace(preStatus, data.status));
                 element.find('i').attr('class', icon[data.status]);
                 element.addClass(classColor[data.status]);
@@ -45,6 +46,7 @@ $(document).ready(function () {
                     active: 'btn-success',
                     inactive: 'btn-danger'
                 }
+                element.data('special', data.special);
                 element.attr('href', url.replace(preSpecial, data.special));
                 element.find('i').attr('class', icon[data.special]);
                 element.addClass(classColor[data.special]);
@@ -68,6 +70,7 @@ $(document).ready(function () {
                     yes: 'fa fa-2x fa-check-square',
                     no: 'fa fa-2x fa-square'
                 }
+                element.data('group_acp', data.group_acp);
                 element.attr('href', url.replace(preGroupACP, data.group_acp));
                 element.find('i').attr('class', icon[data.group_acp]);
                 showNotify(element, data.notify);

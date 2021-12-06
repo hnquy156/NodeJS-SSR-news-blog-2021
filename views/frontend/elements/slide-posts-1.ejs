@@ -1,13 +1,13 @@
 <%
-    const slidepostsElement = (title, items) => {
+    slidepostsElement = (title, items) => {
         let xhtml = ``;
         items.forEach(item => {
             xhtml += `<div class="item px-2">
                         <div class="fh5co_hover_news_img">
                             <div class="fh5co_news_img"><img src="/frontend/images/39-324x235.jpg" alt=""/></div>
                             <div>
-                                <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">The top 10 best computer speakers in the market</span></a>
-                                <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>
+                                <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">${formatSummaryHelper(item.name)}</span></a>
+                                <div class="c_g"><i class="fa fa-clock-o"></i> ${formatDateHelper(item.created.time)}</div>
                             </div>
                         </div>
                     </div>`;

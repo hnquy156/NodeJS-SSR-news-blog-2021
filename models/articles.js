@@ -16,8 +16,30 @@ module.exports = {
             .limit(options.limit);
     },
 
-    getListFrontend: (condition, options = null) => {
-        return ArticlesModels.find(condition);
+    getListFrontend: (options = null, params = null) => {
+        const condition = {status: 'active'};
+        let select = 'name thumb slug content created group';
+        let sort = {'created.time': 'desc'};
+        let skip = null;
+        let limit = null;
+
+        if (options.task === 'articles-new') {
+            return ArticlesModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
+        }
+
+        if (options.task === 'articles-special') {
+            condition.special = 'active';
+            sort = {'ordering': 'asc'};
+            limit = 5;
+            return ArticlesModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
+        }
+        if (options.task === 'articles-random') {
+            return ArticlesModels.aggregate([
+                { $match: {status: 'active'}},
+                { $project: {_id: 1, name: 1, created: 1, thumb:1 }},
+                { $sample: {size: 4}},
+            ]);
+        }
     },
 
     getItem: (id, options = null) => {
