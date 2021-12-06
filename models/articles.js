@@ -16,6 +16,10 @@ module.exports = {
             .limit(options.limit);
     },
 
+    getListFrontend: (condition, options = null) => {
+        return ArticlesModels.find(condition);
+    },
+
     getItem: (id, options = null) => {
         return ArticlesModels.findById({_id: id});
     },

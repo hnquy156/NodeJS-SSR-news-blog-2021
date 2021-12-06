@@ -62,7 +62,7 @@ app.use(flash());
 // Local variable
 app.locals.systemConfigs = systemConfigs;
 app.locals.moment = moment;
-
+app.locals.folderUploads = pathConfigs.folderUploads;
 // Setup Router
 app.use(`/${systemConfigs.prefixAdmin}`, require(__path_routes + 'backend/index'));
 app.use(`/`, require(__path_routes + 'frontend/index'));

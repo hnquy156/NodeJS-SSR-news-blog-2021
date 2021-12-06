@@ -195,6 +195,11 @@
 	
 	};
 
+    $('.nav-item.dropdown').hover(function() {
+            $( this ).addClass( "show" );
+          }, function() {
+            $( this ).removeClass( "show" );
+    });
 	
 	$(function(){
 		owlCarousel();
