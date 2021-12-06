@@ -21,6 +21,7 @@ router.use('/', async (req, res, next) => {
 }, require('./home'));
 router.use('/articles', require('./articles'));
 router.use('/category', require('./category'));
+router.use('/contact', require('./contact'));
 
 
 
