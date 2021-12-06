@@ -7,6 +7,7 @@ const collectionName = 'articles'
 const folderView = `${__path_views_frontend}pages/${collectionName}`;
 const layout = __path_views_frontend + 'layouts/layout';
 const pageTitle = 'Articles';
+
 /* GET home page. */
 router.get('/:id/:article', async (req, res, next) => {
 	const id = req.params.id;

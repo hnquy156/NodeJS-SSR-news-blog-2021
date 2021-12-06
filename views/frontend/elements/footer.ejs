@@ -51,7 +51,7 @@
 					for(let i = 0; i < 3; ++i) {
 						const article = specialArticles[i];
 						%>
-						<div class="footer_makes_sub_font"> <%= formatDateHelper(article.created.time) %></div>
+						<div class="footer_makes_sub_font"><i class="fa fa-clock-o"></i> <%= formatDateHelper(article.created.time) %></div>
 						<a href="#" class="footer_post pb-4"> <%= formatSummaryHelper(article.name, 100) %> </a>
 						<%
 					}
@@ -64,7 +64,7 @@
 				<div class="footer_main_title py-3"> Last Modified Posts</div>
 				
 				<% newArticles.forEach(article => {%>
-					<a href="#" class="footer_img_post_6"><img src="<%= folderUploadArticles + article.thumb %>" alt="img" /></a>
+					<a href="/articles/<%= article.id %>/<%= article.slug %>" class="footer_img_post_6"><img src="<%= folderUploadArticles + article.thumb %>" alt="img" /></a>
 				<%}) 
 				%>
 			</div>

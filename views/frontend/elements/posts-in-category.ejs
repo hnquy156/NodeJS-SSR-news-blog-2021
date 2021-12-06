@@ -16,7 +16,7 @@ postsInCategoryElement = (articles) => {
                     <div class="col-md-7 animate-box">
                         <a href="/articles/${article.id}/${article.slug}" class="fh5co_magna py-2"> ${article.name} </a> 
                         <a href="single.html" class="fh5co_mini_time py-3"> ${formatDateHelper(article.created.time)} </a>
-                        <div class="fh5co_consectetur"> ${formatSummaryHelper(article.content)}</div>
+                        <div class="fh5co_consectetur"><i class="fa fa-clock-o"></i> ${formatSummaryHelper(article.content)}</div>
                     </div>
                 </div>`;
     });

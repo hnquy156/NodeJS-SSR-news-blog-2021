@@ -26,7 +26,7 @@
                 <a style="color:black;" href="/articles/<%= article._id %>/<%= article.slug %>">
                     <div class="most_fh5co_treding_font"> <%= formatSummaryHelper(article.name, 50) %></div>
                 </a>
-                <div class="most_fh5co_treding_font_123"> <%= formatDateHelper(article.created.time) %></div>
+                <div class="most_fh5co_treding_font_123"><i class="fa fa-clock-o"></i> <%= formatDateHelper(article.created.time) %></div>
             </div>
         </div>
         <%});

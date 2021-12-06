@@ -3,6 +3,7 @@
 %>
 <% include ./../../helpers/format %>
 <% include ./../../elements/posts-in-category %>
+<% include ./../../elements/slide-posts-1 %>
 
 <div class="container-fluid pb-4 pt-4 paddding">
     <div class="container paddding">
@@ -19,5 +20,4 @@
     </div>
 </div>
 
-<% include ./../../elements/slide-posts-1 %>
-<% include ./../../elements/slide-posts-2 %>
+<%- slidepostsElement('Top posts', specialArticles) %>
