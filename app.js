@@ -86,7 +86,10 @@ app.use(function(err, req, res, next) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.render('error', { pageTitle: 'Error'});
+	res.render(`${__path_views_frontend}pages/error/error-product`, { 
+		pageTitle: 'Error',
+		layout: __path_views_frontend + 'layouts/layout',
+	});
 });
 
 module.exports = app;
