@@ -25,6 +25,9 @@ router.use('/', async (req, res, next) => {
 router.use('/articles', require('./articles'));
 router.use('/category', require('./category'));
 router.use('/contact', require('./contact'));
-router.use('/auth', require('./auth'));
+router.use('/auth', (req, res, next) => {
+	res.locals.messages = req.flash();
+	next();
+}, require('./auth'));
 
 module.exports = router;

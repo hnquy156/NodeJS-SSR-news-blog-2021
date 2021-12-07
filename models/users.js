@@ -21,6 +21,10 @@ module.exports = {
         return UsersModels.findById({_id: id});
     },
 
+    getUserByUsername: (username, options = null) => {
+        return UsersModels.findOne({username});
+    },
+
     countItems: (condition) => {
         return UsersModels.countDocuments(condition);
     },
