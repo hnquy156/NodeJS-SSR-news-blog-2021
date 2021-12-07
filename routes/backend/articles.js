@@ -23,6 +23,7 @@ const pageTitle = "Articles Management";
 // POST ADD/EDIT
 router.post('/form', FileHelpers.upload('thumb', collectionName), Validates.formValidate(body), async (req, res) => {
 	const item = req.body;
+	const user = req.user;
 	const categoryGroups = await CategoriesModels.getList({}, {select: 'name'});
 	const errors = validationResult(req).array();
 	const pageTitle = item && item.id ? 'Edit' : 'Add';
@@ -49,7 +50,7 @@ router.post('/form', FileHelpers.upload('thumb', collectionName), Validates.form
 			item.thumb = req.file.filename;
 			FileHelpers.removeFile(folderUploads, item.thumb_old);
 		}
-		await MainModel.saveItem(item, {task});
+		await MainModel.saveItem(item, {task, user});
 		NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task});
 	}
 });
@@ -90,8 +91,9 @@ router.post('/change-ordering', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.body, 'cid', '');
 	const ordering		= ParamsHelpers.getParam(req.body, 'ordering', '');
 	const task 			= Array.isArray(id) ? 'change-ordering-multi' : 'change-ordering-one';
-
-	const data = await MainModel.changeOrdering(id, ordering, {task});
+	const user 			= req.user;
+	
+	const data = await MainModel.changeOrdering(id, ordering, {task, user});
 	res.send(data);
 	// NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-ordering'});
 });
@@ -117,8 +119,9 @@ router.post('/change-group', async (req, res) => {
 	const id		    = ParamsHelpers.getParam(req.body, 'id', '');
 	const group_id      = ParamsHelpers.getParam(req.body, 'group_id', '');
 	const group_name    = ParamsHelpers.getParam(req.body, 'group_name', '');
+	const user 			= req.user;
 
-	const data = await MainModel.changeGroup(id, group_id, group_name, {task: 'change-group'});
+	const data = await MainModel.changeGroup(id, group_id, group_name, {task: 'change-group', user});
 	res.send(data);
 });
 
@@ -126,8 +129,9 @@ router.post('/change-group', async (req, res) => {
 router.get('/change-special/:special/:id', async (req, res) => {
 	const currentSpecial = ParamsHelpers.getParam(req.params, 'special', 'active');
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
+	const user 			= req.user;
 
-	const data = await MainModel.changeSpecial(id, currentSpecial, {task: 'change-special-one'});
+	const data = await MainModel.changeSpecial(id, currentSpecial, {task: 'change-special-one', user});
 	res.send(data);
 });
 
@@ -135,8 +139,9 @@ router.get('/change-special/:special/:id', async (req, res) => {
 router.get('/change-status/:status/:id', async (req, res) => {
 	const currentStatus = ParamsHelpers.getParam(req.params, 'status', 'active');
 	const id		    = ParamsHelpers.getParam(req.params, 'id', '');
+	const user 			= req.user;
 
-	const data = await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one'});
+	const data = await MainModel.changeStatus(id, currentStatus, {task: 'change-status-one', user});
 	res.send(data);
 });
 

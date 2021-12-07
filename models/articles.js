@@ -61,12 +61,13 @@ module.exports = {
     },
 
     changeStatus: async (id, currentStatus, options) => {
+        const user = options.user;
 	    const status		= currentStatus === 'active' ? 'inactive' : 'active';
         const data = {
             status,
             modified: {
-                user_id: '',
-                user_name: 'Admin',
+                user_id: user.id,
+                user_name: user.username,
                 time: Date.now(),
             },
         }
@@ -82,12 +83,13 @@ module.exports = {
     },
 
     changeSpecial: async (id, currentSpecial, options) => {
+        const user = options.user;
 	    const special		= currentSpecial === 'active' ? 'inactive' : 'active';
         const data = {
             special,
             modified: {
-                user_id: '',
-                user_name: 'Admin',
+                user_id: user.id,
+                user_name: user.username,
                 time: Date.now(),
             },
         }
@@ -103,11 +105,12 @@ module.exports = {
     },
 
     changeOrdering: async (id, ordering, options) => {
+        const user = options.user;
         const data = {
             ordering: +ordering,
             modified: {
-                user_id: '',
-                user_name: 'Admin',
+                user_id: user.id,
+                user_name: user.username,
                 time: Date.now(),
             },
         }
@@ -125,12 +128,13 @@ module.exports = {
     },
 
     changeGroup: async (id, group_id, group_name, options) => {
+        const user = options.user;
         const data = {
             'group.id': group_id,
             'group.name': group_name,
             modified: {
-                user_id: '',
-                user_name: 'Admin',
+                user_id: user.id,
+                user_name: user.username,
                 time: Date.now(),
             },
         }
@@ -155,14 +159,15 @@ module.exports = {
     },
 
     saveItem: (item, options) => {
+        const user = options.user;
         item.slug = stringsHelpers.changeToSlug(item.slug);
         item['group.id'] = item.group_id;
         item['group.name'] = item.group_name;
 
         if (options.task === 'add') {
             item.created = {
-                user_id: '',
-                user_name: 'Admin',
+                user_id: user.id,
+                user_name: user.username,
                 time: Date.now(),
             }
             return ArticlesModels(item).save();
@@ -170,8 +175,8 @@ module.exports = {
         }
         if (options.task === 'edit') {
             item.modified = {
-                user_id: '',
-                user_name: 'Admin',
+                user_id: user.id,
+                user_name: user.username,
                 time: Date.now(),
             }
             return ArticlesModels.updateOne({_id: item.id}, item);
