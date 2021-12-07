@@ -21,6 +21,12 @@ const linkIndex = `/`;
 const linkLogin = `/auth/login/`;
 
 /* GET Login. */
+router.get('/logout', async (req, res, next) => {
+	req.logOut();
+	res.redirect(linkLogin);
+});
+
+/* GET Login. */
 router.get('/login', async (req, res, next) => {
 	const item = {email: '', password: ''};
 	const errors = [];
