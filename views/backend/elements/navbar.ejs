@@ -1,3 +1,6 @@
+<%
+    const folderUploads = `/uploads/users/`;
+%>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -10,15 +13,15 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="/backend/images/default-user.jpg" class="user-image img-circle elevation-2" alt="User Image">
-                <span class="d-none d-md-inline">User</span>
+                <img src="<%= folderUploads + user.avatar %>" class="user-image img-circle elevation-2" alt="User Image">
+                <span class="d-none d-md-inline"><%= user.name %></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-info">
-                    <img src="/backend/images/default-user.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="<%= folderUploads + user.avatar %>" class="img-circle elevation-2" alt="User Image">
 
-                    <p>User <small>admin</small></p>
+                    <p><%= user.name %> <small><%= user.username %></small></p>
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">

@@ -32,7 +32,7 @@
                 <div class="d-inline-block text-center dd_position_relative ">
                     <div class="text-center d-inline-block">
                         <a href="/auth/login" class="form-control">
-                            <div class="fh5co_verticle_middle">Hi! <%= user ? user.name : 'Login' %></div>
+                            <div class="fh5co_verticle_middle"><%= user ? `Hi! `+user.name : 'Login' %></div>
                         </a>
                     </div>
                     <%if (user) {%>
