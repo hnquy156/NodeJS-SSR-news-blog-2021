@@ -19,8 +19,17 @@ const folderView = `${__path_views_frontend}pages/${collectionName}`;
 const pageTitle = 'Login';
 const linkIndex = `/`;
 const linkLogin = `/auth/login/`;
+const layout = __path_views_frontend + 'layouts/layout';
 
-/* GET Login. */
+/* GET No permission page */
+router.get('/no-permission', (req, res, next) => {
+	res.render(`${folderView}/no-permission`, {
+		pageTitle: 'No Permission',
+		layout,
+	});
+});
+
+/* GET Logout. */
 router.get('/logout', async (req, res, next) => {
 	req.logOut();
 	res.redirect(linkLogin);
