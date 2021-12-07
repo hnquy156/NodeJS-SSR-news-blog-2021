@@ -9,7 +9,7 @@ const options = {
     group: {value: 'default' },
     ordering: {gt: 0, lt: 100},
     slug: {min: 3, max: 100},
-    content: {min: 1, max: 100},
+    content: {min: 1, max: 2000},
 }
 
 module.exports = {

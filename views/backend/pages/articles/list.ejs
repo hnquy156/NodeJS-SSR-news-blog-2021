@@ -12,6 +12,7 @@
 <% include ./../../helpers/highlight %>
 <% include ./../../helpers/image %>
 <% include ./../../helpers/special %>
+<% include ./../../helpers/format %>
 
 <%
     const collection = 'articles';
@@ -103,7 +104,7 @@
                             <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><%- specialHelper(item.special, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><%- orderingHelper(item.ordering, linkPrefix, item.id) %></td>
-                            <td class="text-center"><%= item.slug %></td>
+                            <td class="text-center"><%- formatSummaryHelper(item.slug, 20) %></td>
                             <td class="text-center position-relative"><%- selectboxAjaxHelper('group_id', groupsSelectbox, item.group.id, item.id, linkPrefix) %></td>
                             <td class="text-center">
                                 <%- timeHelper(item.created.user_name, item.created.time) %>
