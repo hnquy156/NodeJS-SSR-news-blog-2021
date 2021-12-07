@@ -12,7 +12,8 @@ const pageTitle = "Settings";
 // Get FORM --- ADD/EDIT
 router.get('/', async (req, res) => {
 	const messages	= req.flash('notify');
-	let emptyItem = {id: '', linkedin: '', twitter: '', google: '', facebook: '', email: '', address: ''};
+	let emptyItem = {id: '', linkedin: '', twitter: '', google: '', 
+					facebook: '', email: '', address: '', text_header: ''};
 	res.locals.sidebarActive = `${collectionName}|form`;
 	let item = await MainModel.getItem();
 	item = item ? item : emptyItem;

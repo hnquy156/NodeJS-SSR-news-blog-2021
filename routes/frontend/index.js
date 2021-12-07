@@ -7,6 +7,7 @@ const SettingsModel = require(__path_models + 'settings');
 
 /* GET home page. */
 router.use('/', async (req, res, next) => {
+	res.locals.socials = ['linkedin', 'google', 'twitter', 'facebook'];
 	res.locals.settings = await SettingsModel.getItemFrontend();
     res.locals.newArticles = await ArticlesModel.getListFrontend({task: 'articles-new'});
 	res.locals.filteredArticles = [...res.locals.newArticles].sort((a,b) => {

@@ -95,7 +95,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-active="articles">
-                        <i class="nav-icon fas fa-book-open"></i>
+                        <i class="nav-icon far fa-newspaper"></i>
                         <p>Article<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -113,6 +113,33 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-active="contacts">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>Contact<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/<%= systemConfigs.prefixAdmin %>/contacts" class="nav-link" data-active="list">
+                                <i class="nav-icon fas fa-list-ul"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/<%= systemConfigs.prefixAdmin %>/contacts/form" class="nav-link" data-active="form">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>Form</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href='/<%= systemConfigs.prefixAdmin %>/settings' class="nav-link" data-active="settings">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>Settings</p>
+                    </a>
                 </li>
             </ul>
         </nav>

@@ -11,6 +11,7 @@ const items = new Schema({
     phone: String,
     email: String,
     address: String,
+    text_header: String,
     
 });
 
