@@ -1,10 +1,12 @@
-const util = require('util');
-const fs = require('fs');
+const bcrypt = require('bcryptjs');
 
+const SystemConfig = require(__path_configs + 'system');
 const NotifyConfig = require(__path_configs + 'notify');
 const UsersModels = require(__path_schemas + 'users');
 const FileHelpers = require(__path_helpers + 'file');
+
 const folderUploads = `${__path_uploads}users/`;
+const salt = SystemConfig.salt;
 
 module.exports = {
     getList: (condition, options) => {
@@ -99,7 +101,8 @@ module.exports = {
     saveItem: (item, options) => {
         item['group.id'] = item.group_id;
         item['group.name'] = item.group_name;
-
+        item.password = bcrypt.hashSync(item.password, salt);
+        
         if (options.task === 'add') {
             item.created = {
                 user_id: '',

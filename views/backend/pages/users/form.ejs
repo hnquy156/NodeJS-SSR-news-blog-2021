@@ -17,6 +17,9 @@
     const folderUploads = `/uploads/${collection}`;
     const formGroup = [
         {label: 'Name', input: inputHelper('name', item.name, 'text')},
+        {label: 'User Name', input: inputHelper('username', item.username, 'text')},
+        {label: 'Password', input: inputHelper('password', item.password, 'password')},
+        {label: 'Password Confirm', input: inputHelper('password_confirm', item.password_confirm, 'password')},
         {label: 'Status', input: selectboxHelper('status', statusSelectbox, item.status)},
         {label: 'Ordering', input: inputHelper('ordering', item.ordering, 'number')},
         {label: 'Group', input: selectboxHelper('group_id', groupsSelectbox, item.group_id)},

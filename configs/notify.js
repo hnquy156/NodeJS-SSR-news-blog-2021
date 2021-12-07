@@ -12,6 +12,7 @@ module.exports = {
     ADD_SUCCESS: 'Thêm mới phần tử thành công',
     EDIT_SUCCESS: 'Cập nhật thông tin phần tử thành công',
     ERROR_NAME: 'Chiều dài từ %d đến %d ký tự',
+    ERROR_PASSWORD_CONFIRM: 'Password không khớp!',
     ERROR_ORDERING: 'Phải là số nguyên lớn hơn %d và bé hơn %d',
     ERROR_STATUS: 'Vui lòng chọn Status!',
     ERROR_GROUP_ACP: 'Phải là một giá trị khác rỗng',

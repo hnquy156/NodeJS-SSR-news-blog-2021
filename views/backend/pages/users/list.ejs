@@ -80,6 +80,7 @@
                         <th class="text-center"><%- checkboxAllHelper() %></th>
                         <th class="text-center">#</th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Name', 'name', sortField, sortType) %></th>
+                        <th class="text-center"><%- sortHelper(linkPrefix, 'User Name', 'username', sortField, sortType) %></th>
                         <th class="text-center">Avatar</th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Status', 'status', sortField, sortType) %></th>
                         <th class="text-center"><%- sortHelper(linkPrefix, 'Ordering', 'ordering', sortField, sortType) %></th>
@@ -96,6 +97,7 @@
                             <td class="text-center"><%- checkboxHelper(index, item.id) %></td>
                             <td class="text-center"><%= index + 1 %></td>
                             <td class="text-center"><%- highlightHelper(item.name, search_value) %></td>
+                            <td class="text-center"><%- item.username %></td>
                             <td class="text-center"><%- imageHelper(item.avatar, folderUploads, 'mini') %></td>
                             <td class="text-center position-relative"><%- statusHelper(item.status, linkPrefix, item.id) %></td>
                             <td class="text-center position-relative"><%- orderingHelper(item.ordering, linkPrefix, item.id) %></td>
