@@ -11,4 +11,5 @@ module.exports = {
     folderSchemas: 'schemas',
     folderModels: 'models',
     folderValidates: 'validates',
+    folderMiddlewares: 'middlewares',
 }
