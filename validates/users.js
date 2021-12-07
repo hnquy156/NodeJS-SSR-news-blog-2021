@@ -23,11 +23,6 @@ module.exports = {
         // username
         body('username', util.format(NotifyConfigs.ERROR_NAME, options.username.min, options.username.max))
             .isLength(options.username),
-        body('username', NotifyConfigs.ERROR_USERNAME_EXIST)
-            .custom( async (value) => {
-                const user = await UsersModel.getUserByUsername(value);
-                return user !== null ? Promise.reject() : true;
-            }),
 
         // password
         body('password', util.format(NotifyConfigs.ERROR_NAME, options.password.min, options.password.max))

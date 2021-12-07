@@ -24,6 +24,7 @@ const pageTitle = "Users Management";
 router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValidate(body), async (req, res) => {
 	const item = req.body;
 	const groups = await GroupsModel.getList({}, {select: 'name'});
+	const userItem = await MainModel.getUserByUsername(item.username );
 	const errors = validationResult(req).array();
 	const pageTitle = item && item.id ? 'Edit' : 'Add';
 	const task = item && item.id ? 'edit' : 'add';
@@ -33,7 +34,7 @@ router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValida
 		item.password = systemConfigs.password_default;
 		item.password_confirm = systemConfigs.password_default;
 	}
-
+	if (userItem && task === 'add') errors.push({param: 'username', msg: NotifyConfigs.ERROR_USERNAME_EXIST});
 	if (req.errorMulter) {
 		if (req.errorMulter.code && req.errorMulter.code === 'LIMIT_FILE_SIZE')
 			errors.push({param: 'avatar', msg: NotifyConfigs.ERROR_FILE_LIMIT});
@@ -45,6 +46,7 @@ router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValida
 
 	if (errors.length > 0) {
 		if (req.file) FileHelpers.removeFile(folderUploads, req.file.filename);
+		item.avatar = item.avatar_old;
 		res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
 
 	} else {
