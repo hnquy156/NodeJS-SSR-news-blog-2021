@@ -4,4 +4,5 @@ module.exports = {
     long_time_format: 'hh:mm DD-MM-YYYY',
     full_time_format: 'dddd, DD MMMM YYYY',
     salt: 10,
+    password_default: '*8556+-/*54+4**-',
 }

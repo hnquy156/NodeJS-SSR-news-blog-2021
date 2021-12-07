@@ -28,7 +28,12 @@ router.post('/form', FileHelpers.upload('avatar', 'users'), Validates.formValida
 	const pageTitle = item && item.id ? 'Edit' : 'Add';
 	const task = item && item.id ? 'edit' : 'add';
 	res.locals.sidebarActive = `${collectionName}|form`;
-	
+
+	if (item && item.id && item.password.length > 20) {
+		item.password = systemConfigs.password_default;
+		item.password_confirm = systemConfigs.password_default;
+	}
+
 	if (req.errorMulter) {
 		if (req.errorMulter.code && req.errorMulter.code === 'LIMIT_FILE_SIZE')
 			errors.push({param: 'avatar', msg: NotifyConfigs.ERROR_FILE_LIMIT});
@@ -67,7 +72,11 @@ router.get('/form(/:id)?', async (req, res) => {
 
 	item.group_id   = item.group ? item.group.id : '';
 	item.group_name = item.group ? item.group.name : '';
-	
+	if (item && item.id && item.password.length > 20) {
+		item.password = systemConfigs.password_default;
+		item.password_confirm = systemConfigs.password_default;
+	}
+
 	res.render(`${folderView}/form`, {pageTitle, errors, item, groups});
 });
 

@@ -102,7 +102,7 @@ module.exports = {
         item['group.id'] = item.group_id;
         item['group.name'] = item.group_name;
         item.password = bcrypt.hashSync(item.password, salt);
-        
+
         if (options.task === 'add') {
             item.created = {
                 user_id: '',
@@ -113,6 +113,10 @@ module.exports = {
 
         }
         if (options.task === 'edit') {
+            
+            if (bcrypt.compareSync(SystemConfig.password_default, item.password)) {
+                delete item.password;
+            }
             item.modified = {
                 user_id: '',
                 user_name: 'Admin',
