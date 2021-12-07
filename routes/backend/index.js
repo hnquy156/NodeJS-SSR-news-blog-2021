@@ -9,6 +9,7 @@ router.use('/users', require('./users'));
 router.use('/categories', require('./categories'));
 router.use('/articles', require('./articles'));
 router.use('/contacts', require('./contacts'));
+router.use('/settings', require('./settings'));
 
 
 

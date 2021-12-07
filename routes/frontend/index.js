@@ -3,9 +3,11 @@ const router = express.Router();
 
 const ArticlesModel = require(__path_models + 'articles');
 const CategoriesModel = require(__path_models + 'categories');
+const SettingsModel = require(__path_models + 'settings');
 
 /* GET home page. */
 router.use('/', async (req, res, next) => {
+	res.locals.settings = await SettingsModel.getItemFrontend();
     res.locals.newArticles = await ArticlesModel.getListFrontend({task: 'articles-new'});
 	res.locals.filteredArticles = [...res.locals.newArticles].sort((a,b) => {
 		if (a.group.name > b.group.name) return 1

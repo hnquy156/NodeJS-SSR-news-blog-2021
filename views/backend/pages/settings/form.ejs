@@ -1,0 +1,36 @@
+<% include ./../../helpers/selectbox %>
+<% include ./../../helpers/input %>
+<% include ./../../helpers/form-group %>
+<% include ./../../helpers/textarea %>
+<% include ./../../helpers/notify %>
+<%
+    collection = 'settings';
+    linkPrefix = `/${systemConfigs.prefixAdmin}/${collection}`;
+    const formGroup = [
+        {label: 'Phone', input: inputHelper('phone', item.phone, 'number')},
+        {label: 'Email', input: inputHelper('email', item.email, 'text')},
+        {label: 'Address', input: inputHelper('address', item.address, 'text')},
+        {label: 'Linkedin', input: inputHelper('linkedin', item.linkedin, 'text')},
+        {label: 'Google', input: inputHelper('google', item.google, 'text')},
+        {label: 'Twitter', input: inputHelper('twitter', item.twitter, 'text')},
+        {label: 'Facebook', input: inputHelper('facebook', item.facebook, 'text')},
+    ];
+%>
+
+<%- showNotify(messages) %>
+
+<div class="card card-info card-outline">
+    <div class="card-body">
+        <form action="<%= linkPrefix %>" method="post" class="mb-0" id="admin-form">
+            <%- formGroupHelper(formGroup) %>
+            <%- inputHelper('id', item.id, 'hidden') %>
+        </form>`
+        
+    </div>
+    <div class="card-footer">
+        <div class="col-12 col-sm-8 offset-sm-2">
+            <button id="admin-form-submit" class="btn btn-sm btn-success mr-1"> Save</button>
+            <a href="/<%= systemConfigs.prefixAdmin %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+        </div>
+    </div>
+</div>
