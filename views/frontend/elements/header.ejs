@@ -1,6 +1,6 @@
 <div class="container-fluid fh5co_header_bg">
     <div class="container">
-        <div class="row">
+        <div class="row d-flex">
             <div class="col-12 fh5co_mediya_center"><a href="#" class="color_fff fh5co_mediya_setting"><i
                         class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;<%= moment(Date.now()).format(systemConfigs.full_time_format) %></a>
                 <div class="d-inline-block fh5co_trading_posotion_relative"><a href="#" class="treding_btn">Trending</a>
@@ -30,12 +30,25 @@
                 
                 <!--<div class="d-inline-block text-center"><img src="/frontend/images/country.png" alt="img" class="fh5co_country_width"/></div>-->
                 <div class="d-inline-block text-center dd_position_relative ">
-                    <select class="form-control fh5co_text_select_option">
+                    <div class="text-center d-inline-block">
+                        <a href="/auth/login" class="form-control">
+                            <div class="fh5co_verticle_middle">Hi! <%= user ? user.name : 'Login' %></div>
+                        </a>
+                    </div>
+                    <%if (user) {%>
+                        <div class="text-center d-inline-block">
+                            <a href="/auth/logout" class="form-control">
+                                <div class="fh5co_verticle_middle">Logout</div>
+                            </a>
+                        </div>
+                    <%}
+                    %>
+                    <!-- <select class="form-control fh5co_text_select_option">
                         <option>English </option>
                         <option>French </option>
                         <option>German </option>
                         <option>Spanish </option>
-                    </select>
+                    </select> -->
                 </div>
                 <div class="clearfix"></div>
             </div>
