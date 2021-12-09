@@ -37,6 +37,7 @@ router.get('/logout', async (req, res, next) => {
 
 /* GET Login. */
 router.get('/login', async (req, res, next) => {
+	if (req.isAuthenticated()) res.redirect(linkIndex);
 	const item = {email: '', password: ''};
 	const errors = [];
 
