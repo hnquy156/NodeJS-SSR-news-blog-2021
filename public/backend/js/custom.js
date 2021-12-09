@@ -112,7 +112,7 @@ $(document).ready(function () {
 
     // Hide Notify
     setTimeout(() => {
-        $('#close-notify').click();
+        $('.close-notify').click();
     }, 5000);
 
     // Change Name to Slug in Form

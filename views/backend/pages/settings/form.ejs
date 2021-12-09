@@ -15,6 +15,8 @@
         {label: 'Twitter', input: inputHelper('twitter', item.twitter, 'text')},
         {label: 'Facebook', input: inputHelper('facebook', item.facebook, 'text')},
         {label: 'Text Header', input: inputHelper('text_header', item.text_header, 'text')},
+        {label: 'Logo', input: inputHelper('logo', item.logo, 'file')},
+        {label: 'Logo White', input: inputHelper('logo_white', item.logo_white, 'file')},
     ];
 %>
 
@@ -22,9 +24,11 @@
 
 <div class="card card-info card-outline">
     <div class="card-body">
-        <form action="<%= linkPrefix %>" method="post" class="mb-0" id="admin-form">
+        <form action="<%= linkPrefix %>" method="post" class="mb-0" id="admin-form" enctype="multipart/form-data">
             <%- formGroupHelper(formGroup) %>
             <%- inputHelper('id', item.id, 'hidden') %>
+            <%- inputHelper('logo', item.logo, 'hidden') %>
+            <%- inputHelper('logo_white', item.logo_white, 'hidden') %>
         </form>`
         
     </div>

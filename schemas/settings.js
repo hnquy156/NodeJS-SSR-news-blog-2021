@@ -12,7 +12,8 @@ const items = new Schema({
     email: String,
     address: String,
     text_header: String,
-    
+    logo: String,
+    logo_white: String,
 });
 
 module.exports = mongoose.model(databaseConfigs.col_settings, items);
