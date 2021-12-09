@@ -6,7 +6,7 @@ const StringHelpers = require(__path_helpers + 'string');
 const NotifyConfig = require(__path_configs + 'notify');
 const imageFileExtensions = /jpeg|jpg|png|gif/ig;
 
-const uploadFile = (fieldname, destinationFolder, fileSizeMb = 0.5, filenameLength = 10, fileExtensions = imageFileExtensions) => {
+const uploadFile = (fieldname, destinationFolder, fileSizeMb = 2, filenameLength = 10, fileExtensions = imageFileExtensions) => {
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, __path_uploads + destinationFolder);

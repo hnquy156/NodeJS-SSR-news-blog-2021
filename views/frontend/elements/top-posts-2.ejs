@@ -1,15 +1,16 @@
-<div class="container-fluid paddding mb-5">
-    <div class="row mx-0">
-        <div class="col-12 paddding animate-box" data-animate-effect="fadeIn">
-            <div class="fh5co_suceefh5co_height"><img src="<%= folderUploadArticles + articleItem.thumb %>" alt="img"/>
-                <div class="fh5co_suceefh5co_height_position_absolute"></div>
-                <div class="fh5co_suceefh5co_height_position_absolute_font">
-                    <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<%= formatDateHelper(articleItem.created.time) %>
-                    </a></div>
-                    <div class=""><a href="/articles/<%= articleItem.id %>/<%= articleItem.slug %>" class="fh5co_good_font"> <%= formatSummaryHelper(articleItem.name) %> </a></div>
+<div class="container-fluid pb-4 pt-4 paddding">
+        <div class="row mx-0">
+            <div class="col-12 paddding animate-box" data-animate-effect="fadeIn">
+                <div class="fh5co_suceefh5co_height"><img src="<%= folderUploadArticles + articleItem.thumb %>" alt="img"/>
+                    <div class="fh5co_suceefh5co_height_position_absolute"></div>
+                    <div class="fh5co_suceefh5co_height_position_absolute_font">
+                        <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<%= formatDateHelper(articleItem.created.time) %>
+                        </a></div>
+                        <div class=""><a href="/articles/<%= articleItem.id %>/<%= articleItem.slug %>" class="fh5co_good_font"> <%= formatSummaryHelper(articleItem.name) %> </a></div>
+                    </div>
                 </div>
             </div>
+            
         </div>
-        
     </div>
-</div>
+</div>>
