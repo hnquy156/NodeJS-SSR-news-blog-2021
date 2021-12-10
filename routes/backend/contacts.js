@@ -70,13 +70,6 @@ router.post('/change-status/:status', async (req, res) => {
 	NotifyHelpers.showNotifyAndRedirect(req, res, linkIndex, {task: 'change-status-multi', total: result.modifiedCount});
 });
 
-// POST Contact Page
-router.post('/', async (req, res) => {
-	const contactItem = req.body;
-
-	const result = await MainModel.saveItem(contactItem, {task: 'add'});
-	res.redirect('/contact/success');
-});
 
 /* GET list page. */
 router.get('(/status/:status)?', async (req, res, next) => {

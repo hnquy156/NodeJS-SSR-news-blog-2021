@@ -73,7 +73,7 @@ module.exports = {
     saveItem: (item, options) => {
         
         if (options.task === 'add') {
-            item.status = 'active';
+            item.status = 'inactive';
             item.ordering = 1;
             item.created = {
                 user_id: '',

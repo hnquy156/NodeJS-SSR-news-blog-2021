@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const collectionName = 'contact';
+const MainModel = require(__path_models + 'contacts');
 const ArticlesModel = require(__path_models + 'articles');
 const CategoriesModel = require(__path_models + 'categories');
 const folderView = `${__path_views_frontend}pages/${collectionName}`;
@@ -24,6 +25,14 @@ router.get('/success', async (req, res, next) => {
 		pageTitle, 
 		layout,
 	});
+});
+
+// POST Contact Page
+router.post('/', async (req, res) => {
+	const contactItem = req.body;
+
+	const result = await MainModel.saveItem(contactItem, {task: 'add'});
+	res.redirect('/contact/success');
 });
 
 module.exports = router;
