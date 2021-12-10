@@ -10,11 +10,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/"><i class="fa fa-home"></i> TRANG CHỦ <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton2" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Category <span class="sr-only">(current)</span></a>
+                           aria-haspopup="true" aria-expanded="false">DANH MỤC <span class="sr-only">(current)</span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink_1">
                             <% categoriesList.forEach(category => {%>
                                 <a class="dropdown-item" href="/category/<%= category.id %>"><%= category.name %></a>
@@ -23,11 +23,11 @@
                         </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="/contact">Contact <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/contact">LIÊN HỆ <span class="sr-only">(current)</span></a>
                     </li>
                     <% if (user) {%>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/<%= systemConfigs.prefixAdmin %>">Admin Control Panel <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/<%= systemConfigs.prefixAdmin %>">PHẦN QUẢN TRỊ <span class="sr-only">(current)</span></a>
                         </li>
                     <%}
                     %>

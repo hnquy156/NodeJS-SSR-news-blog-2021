@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-3 col-lg-2">
-				<div class="footer_main_title py-3"> Category</div>
+				<div class="footer_main_title py-3"> Danh mục</div>
 				<ul class="footer_menu">
 					<% categoriesList.forEach(category => {%>
 						<li><a href="/category/<%= category.id %>" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;
@@ -46,7 +46,7 @@
 				</ul>
 			</div>
 			<div class="col-12 col-md-5 col-lg-3 position_footer_relative">
-				<div class="footer_main_title py-3"> Most Viewed Posts</div>
+				<div class="footer_main_title py-3"> Bài viết nhiều theo dõi</div>
 				
 				<%
 					for(let i = 0; i < 3; ++i) {
@@ -62,7 +62,7 @@
 						class="width_footer_sub_img" /></div>
 			</div>
 			<div class="col-12 col-md-12 col-lg-4 ">
-				<div class="footer_main_title py-3"> Last Modified Posts</div>
+				<div class="footer_main_title py-3"> Bài viết thay đổi gần đây</div>
 				
 				<% newArticles.forEach(article => {%>
 					<a href="/articles/<%= article.id %>/<%= article.slug %>" class="footer_img_post_6"><img src="<%= folderUploadArticles + article.thumb %>" alt="img" /></a>
@@ -75,10 +75,10 @@
 				<div class="input-group">
 					<span class="input-group-addon fh5co_footer_text_box" id="basic-addon1"><i
 							class="fa fa-envelope"></i></span>
-					<input type="text" class="form-control fh5co_footer_text_box" placeholder="Enter your email..."
+					<input type="text" class="form-control fh5co_footer_text_box" placeholder="Nhập Email của bạn..."
 						aria-describedby="basic-addon1">
 					<a href="#" class="input-group-addon fh5co_footer_subcribe" id="basic-addon12">
-						<i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Subscribe</a>
+						<i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Đăng kí</a>
 				</div>
 			</div>
 		</div>
@@ -91,10 +91,9 @@
 			<div class="col-12 col-md-6 py-4 Reserved"> © Copyright 2021, All rights reserved. Design by <a
 					href="https://freehtml5.co" title="Free HTML5 Bootstrap templates">FreeHTML5.co</a>. </div>
 			<div class="col-12 col-md-6 spdp_right py-4">
-				<a href="#" class="footer_last_part_menu">Home</a>
-				<a href="/contact" class="footer_last_part_menu">About</a>
-				<a href="/contact" class="footer_last_part_menu">Contact</a>
-				<a href="blog.html" class="footer_last_part_menu">Latest News</a>
+				<a href="/" class="footer_last_part_menu">Tramg chủ</a>
+				<a href="/contact" class="footer_last_part_menu">Liên hệ</a>
+				<a href="/" class="footer_last_part_menu">Tin gần đây</a>
 			</div>
 		</div>
 	</div>

@@ -3,7 +3,7 @@ postsInCategoryElement = (articles) => {
     let xhtml = ``;
     if (articles.length === 0) {
         xhtml += `<div class="row pb-4">
-                    <h2>Không có dữ liệu hiển thị</h2>
+                    <h2>Không có bài viết trong danh mục</h2>
                 </div>`;
     } else 
     articles.forEach(article => {
@@ -21,7 +21,7 @@ postsInCategoryElement = (articles) => {
                 </div>`;
     });
     return `<div>
-                <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">News</div>
+                <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">${'Tin tức'}</div>
             </div>
             ${xhtml}
             `;

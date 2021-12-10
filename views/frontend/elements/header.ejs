@@ -22,13 +22,13 @@
                 <div class="d-inline-block text-center dd_position_relative ">
                     <div class="text-center d-inline-block">
                         <a href="/auth/login" class="form-control">
-                            <div class="fh5co_verticle_middle"><%= user ? `Hi! `+user.name : 'Login' %></div>
+                            <div class="fh5co_verticle_middle"><%= user ? `Chào `+user.name : 'Đăng nhập' %></div>
                         </a>
                     </div>
                     <%if (user) {%>
                         <div class="text-center d-inline-block">
                             <a href="/auth/logout" class="form-control">
-                                <div class="fh5co_verticle_middle">Logout</div>
+                                <div class="fh5co_verticle_middle">Đăng xuất</div>
                             </a>
                         </div>
                     <%}
