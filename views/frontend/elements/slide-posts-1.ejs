@@ -6,7 +6,7 @@
                         <div class="fh5co_hover_news_img">
                             <div class="fh5co_news_img"><img style="width: 260px;" src="${folderUploadArticles + item.thumb}" alt="${item.thumb}"/></div>
                             <div>
-                                <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">${formatSummaryHelper(item.name)}</span></a>
+                                <a href="/articles/${item.id}/${item.slug}" class="d-block fh5co_small_post_heading"><span class="">${formatSummaryHelper(item.name)}</span></a>
                                 <div class="c_g"><i class="fa fa-clock-o"></i> ${formatDateHelper(item.created.time)}</div>
                             </div>
                         </div>
