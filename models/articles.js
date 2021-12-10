@@ -18,7 +18,10 @@ module.exports = {
     },
 
     getListFrontend: async (options = null, params = null) => {
-        const condition = {status: 'active'};
+        let categories = await CategoriesModels.find({status: 'active'}, 'name');
+        categories = categories.map(category => category.name);
+
+        const condition = {status: 'active', 'group.name': {$in: categories}};
         let select = 'name thumb slug content created group';
         let sort = {'created.time': 'desc'};
         let skip = null;
