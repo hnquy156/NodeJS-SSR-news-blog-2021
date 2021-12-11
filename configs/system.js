@@ -5,4 +5,11 @@ module.exports = {
     full_time_format: 'dddd, DD MMMM YYYY',
     salt: 10,
     password_default: '*8556+-/*54+4**-',
+    dashboard_managements: [
+        {name: 'Article', collection: 'articles', icon: 'ion ion-ios-book'},
+        {name: 'Category', collection: 'categories', icon: 'ion ion-clipboard'},
+        {name: 'User', collection: 'users', icon: 'ion ion-ios-person'},
+        {name: 'Group', collection: 'groups', icon: 'ion ion-ios-people'},
+        {name: 'Contact', collection: 'contacts', icon: 'ion ion-ios-contact'},
+    ],
 }
