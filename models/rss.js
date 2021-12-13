@@ -1,23 +1,35 @@
 const util = require('util');
 
 const NotifyConfig = require(__path_configs + 'notify');
-const ContactsModels = require(__path_schemas + 'rss');
+const rssModels = require(__path_schemas + 'rss');
 
 module.exports = {
     getList: (condition, options) => {
-        return ContactsModels
+        return rssModels
             .find(condition)
             .sort(options.sort)
             .skip(options.skip)
             .limit(options.limit);
     },
 
+    getListFrontend: (options) => {
+        const condition = {status: 'active'};
+        let select = 'name ordering rss_link';
+        let sort = {'ordering': 'asc'};
+        let skip = null;
+        let limit = null;
+
+        if (options.task === 'rss-list') {
+            return rssModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
+        }
+    },
+
     getItem: (id, options = null) => {
-        return ContactsModels.findById({_id: id});
+        return rssModels.findById({_id: id});
     },
 
     countItems: (condition) => {
-        return ContactsModels.countDocuments(condition);
+        return rssModels.countDocuments(condition);
     },
 
     changeStatus: async (id, currentStatus, options) => {
@@ -32,12 +44,12 @@ module.exports = {
         }
 
         if (options.task === 'change-status-one') {
-            await ContactsModels.updateOne({_id: id}, data);
+            await rssModels.updateOne({_id: id}, data);
             return {id, status, notify: NotifyConfig.CHANGE_STATUS_SUCCESS};
         }
         if (options.task === 'change-status-multi') {
             data.status = currentStatus;
-            return ContactsModels.updateMany({_id: { $in: id}}, data);
+            return rssModels.updateMany({_id: { $in: id}}, data);
         }
     },
 
@@ -51,13 +63,13 @@ module.exports = {
             },
         }
         if (options.task === 'change-ordering-one') {
-            await ContactsModels.updateOne({_id: id}, data);
+            await rssModels.updateOne({_id: id}, data);
             return {id, ordering: +ordering, notify: NotifyConfig.CHANGE_ORDERING_SUCCESS}
         }
         if (options.task === 'change-ordering-multi') {
             const promiseOrdering = id.map((ID, index) => {
                 data.ordering = +ordering[index]
-                return ContactsModels.updateOne({_id: ID}, data);
+                return rssModels.updateOne({_id: ID}, data);
             });
             return await Promise.all(promiseOrdering);
         }
@@ -65,22 +77,21 @@ module.exports = {
 
     deleteItem: (id, options) => {
         if (options.task === 'delete-one')
-            return ContactsModels.deleteOne({_id: id});
+            return rssModels.deleteOne({_id: id});
         if (options.task === 'delete-multi')
-            return ContactsModels.deleteMany({_id: { $in: id}});
+            return rssModels.deleteMany({_id: { $in: id}});
     },
 
     saveItem: (item, options) => {
         
         if (options.task === 'add') {
-            item.status = 'inactive';
             item.ordering = 1;
             item.created = {
                 user_id: '',
                 user_name: 'user',
                 time: Date.now(),
             }
-            return ContactsModels(item).save();
+            return rssModels(item).save();
 
         }
         if (options.task === 'edit') {
@@ -89,7 +100,7 @@ module.exports = {
                 user_name: 'Admin',
                 time: Date.now(),
             }
-            return ContactsModels.updateOne({_id: item.id}, item);
+            return rssModels.updateOne({_id: item.id}, item);
         }
     },
 }

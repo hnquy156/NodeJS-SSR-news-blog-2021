@@ -1,6 +1,7 @@
 const ArticlesModel = require(__path_models + 'articles');
 const CategoriesModel = require(__path_models + 'categories');
 const SettingsModel = require(__path_models + 'settings');
+const rssModel = require(__path_models + 'rss');
 
 module.exports = async (req, res, next) => {
 	res.locals.user = req.user;
@@ -16,6 +17,8 @@ module.exports = async (req, res, next) => {
 	res.locals.specialArticles = await ArticlesModel.getListFrontend({task: 'articles-special'});
 	res.locals.randomArticles = await ArticlesModel.getListFrontend({task: 'articles-random'});
 	res.locals.categoriesList = await CategoriesModel.getListFrontend({task: 'categories-list'});
+	res.locals.rssFeeds = await rssModel.getListFrontend({task: 'rss-list'});
+	console.log(res.locals.rssFeeds)
 
     next();
 }
