@@ -9,4 +9,5 @@ module.exports = {
     col_articles: 'articles',
     col_contacts: 'contacts',
     col_settings: 'settings',
+    col_rss: 'rss',
 }
