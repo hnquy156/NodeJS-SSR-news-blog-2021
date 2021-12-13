@@ -85,7 +85,6 @@ module.exports = {
     saveItem: (item, options) => {
         
         if (options.task === 'add') {
-            item.ordering = 1;
             item.created = {
                 user_id: '',
                 user_name: 'user',

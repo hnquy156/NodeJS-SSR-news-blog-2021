@@ -18,7 +18,6 @@ module.exports = async (req, res, next) => {
 	res.locals.randomArticles = await ArticlesModel.getListFrontend({task: 'articles-random'});
 	res.locals.categoriesList = await CategoriesModel.getListFrontend({task: 'categories-list'});
 	res.locals.rssFeeds = await rssModel.getListFrontend({task: 'rss-list'});
-	console.log(res.locals.rssFeeds)
 
     next();
 }
