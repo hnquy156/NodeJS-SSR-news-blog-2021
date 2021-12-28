@@ -24,4 +24,6 @@ module.exports = {
     ERROR_FILE_REQUIRE: 'Vui lòng chọn file upload!',
     ERROR_FILE_LIMIT: 'Kích thước file không phù hợp!',
     ERROR_FILE_EXTENSION: 'Phần mở rộng file không hợp lệ!',
+
+    LOAD_RSS_SUCCESS: 'Cập nhật RSS thành công',
 };

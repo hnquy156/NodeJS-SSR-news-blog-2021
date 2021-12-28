@@ -2,6 +2,7 @@
 <% include ./../../helpers/filter-status %>
 <% include ./../../helpers/pagination %>
 <% include ./../../helpers/control %>
+<% include ./../../helpers/load-rss %>
 <% include ./../../helpers/action %>
 <% include ./../../helpers/notify %>
 <% include ./../../helpers/time %>
@@ -96,7 +97,10 @@
                             <td class="text-center modified-1">
                                 <%- timeHelper(item.modified.user_name, item.modified.time) %>
                             </td>
-                            <td class="text-center"><%- controlHelper(item.id, linkPrefix) %></td>
+                            <td class="text-center position-relative">
+                                <%- controlHelper(item.id, linkPrefix) %>
+                                <%- loadRssHelper(item.id, linkPrefix) %>
+                            </td>
                         </tr>
                         <%
                     })%>

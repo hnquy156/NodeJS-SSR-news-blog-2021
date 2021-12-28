@@ -132,6 +132,23 @@ $(document).ready(function () {
         });
     });
 
+    // Load RSS Articles
+    $('.ajax-load-rss').click(function(e) {
+        e.preventDefault();
+        const element = $(this);
+        const url = element.attr('href');
+        const id = element.data('id');
+        $.ajax({
+            method: 'get',
+            url,
+            success: (data) => {
+                
+                showNotify(element, data.notify);
+            }
+        });
+    });
+
+    
 });
 
 function showNotify(element, content, status = 'success') {

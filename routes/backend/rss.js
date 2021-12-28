@@ -144,4 +144,11 @@ router.post('/form', Validates.formValidate(body), async (req, res) => {
 	}
 });
 
+// POST SAVE RSS POSTS
+router.get('/save-articles/:id', async (req, res) => {
+	const id = req.params.id;
+	const data = await MainModel.saveArticleRss(id);
+	res.send(data);
+});
+
 module.exports = router;

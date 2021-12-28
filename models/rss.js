@@ -1,7 +1,11 @@
 const util = require('util');
 
+const Parser = require('rss-parser');
+
+const parser = new Parser();
 const NotifyConfig = require(__path_configs + 'notify');
 const rssModels = require(__path_schemas + 'rss');
+const rssArticlesModels = require(__path_schemas + 'rssArticles');
 
 module.exports = {
     getList: (condition, options) => {
@@ -22,6 +26,19 @@ module.exports = {
         if (options.task === 'rss-list') {
             return rssModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
         }
+    },
+
+    getListRssItem: (params = null, options = null) => {
+        const condition = {};
+        let select = null;
+        let sort = '-pubDate';
+        let skip = null;
+        let limit = 15;
+
+        if (params && params.categoryID) condition.categoryID = params.categoryID;
+        console.log(condition)
+
+        return rssArticlesModels.find(condition).select(select).sort(sort).skip(skip).limit(limit);
     },
 
     getItem: (id, options = null) => {
@@ -101,5 +118,29 @@ module.exports = {
             }
             return rssModels.updateOne({_id: item.id}, item);
         }
+    },
+
+    saveArticleRss: async (id = null, options = null) => {
+        const rssCategoryItem = await rssModels.findById({_id: id});
+        const rssItem = await rssArticlesModels.find({categoryID: id}).sort({pubDate:-1}).limit(1);
+        const lastTime = rssItem.length > 0 ? rssItem[0].pubDate : 0;
+
+        let feed = await parser.parseURL(rssCategoryItem.rss_link);
+        let rssArticles = [];
+        for(let i = 1; i <= 15; i++) {
+            let item = feed.items[i];
+            if (lastTime > Date.parse(item.pubDate) - 10) continue;
+            
+            let myImage = item.content.match(/src\s*=\s*"(.+?)"/i);
+            let myContent = item.content.match('.*br>(.*)');
+
+            item.image = myImage ? myImage[1] : '';
+            item.content = myContent[1];
+            item.categoryID = id;
+            item.pubDate = Date.parse(item.pubDate);
+            rssArticles.push(item);
+        }
+        await rssArticlesModels.create(rssArticles);
+        return {notify: NotifyConfig.LOAD_RSS_SUCCESS};
     },
 }

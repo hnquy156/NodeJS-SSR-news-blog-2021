@@ -5,6 +5,7 @@
 %>
 <% include ./../../helpers/format %>
 <% include ./../../elements/slide-posts-1 %>
+<% include ./../../elements/posts-in-category-rss %>
 
 <div class="container-fluid pb-4 pt-4 paddding">
     <div class="container paddding">
@@ -13,7 +14,7 @@
                 <div>
                     <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4"><%= currentRSS.name %></div>
                 </div>
-                <div id="rss-feeds" data-link="<%= currentRSS.rss_link %>"></div>
+                <%- postsInCategoryRssElement(rssArticles) %>
             </div>
             <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">
                 <% include ./../../elements/sidebar %>
